@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDeTestes.WinApp", "GeradorDeTestes.WinApp\GeradorDeTestes.WinApp.csproj", "{8E5E4547-2550-492C-9A38-56EE25FDEE15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorDeTestes.WinApp", "GeradorDeTestes.WinApp\GeradorDeTestes.WinApp.csproj", "{8E5E4547-2550-492C-9A38-56EE25FDEE15}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorDeTestes.Dominio", "GeradorDeTestes.Dominio\GeradorDeTestes.Dominio.csproj", "{FD73CE93-E887-43DA-938A-71D61B429B46}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1- Apresentação", "1- Apresentação", "{35C4B3F6-421D-433E-8E1E-397580651C97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2- Domínio", "2- Domínio", "{E55ADF24-1969-4E15-A530-14703C180C18}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3- Infra", "3- Infra", "{807A1203-5A16-4F96-94EC-00AB8FD67688}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,17 @@ Global
 		{8E5E4547-2550-492C-9A38-56EE25FDEE15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E5E4547-2550-492C-9A38-56EE25FDEE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E5E4547-2550-492C-9A38-56EE25FDEE15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD73CE93-E887-43DA-938A-71D61B429B46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD73CE93-E887-43DA-938A-71D61B429B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD73CE93-E887-43DA-938A-71D61B429B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD73CE93-E887-43DA-938A-71D61B429B46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8E5E4547-2550-492C-9A38-56EE25FDEE15} = {35C4B3F6-421D-433E-8E1E-397580651C97}
+		{FD73CE93-E887-43DA-938A-71D61B429B46} = {E55ADF24-1969-4E15-A530-14703C180C18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC7B7623-3A32-4067-8D65-93A5D73299A8}
