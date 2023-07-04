@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 {
-    public abstract class RepositorioBaseEmSql <TEntidade> where TEntidade : EntidadeBase<TEntidade>
+    public abstract class RepositorioBaseEmSql <TEntidade,TMapeador> 
+        where TEntidade : EntidadeBase<TEntidade> 
+        where TMapeador : MapeadorBase<TEntidade>,new()
     {
 
         public const string ENDERECOBANCO = "Data Source=(LocalDB)\\MSSqlLocalDB;" +
@@ -16,11 +18,19 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
               "Integrated Security=True;" +
               "Pooling=False";
 
+      
         public abstract string SqlInserir { get; }
         public abstract string SqlBuscarTodos { get; }
         public abstract string SqlDeletar { get; }
         public abstract string SqlBuscaId { get; }
         public abstract string SqlEditar { get; }
+
+        protected RepositorioBaseEmSql()
+        {
+            mapeador = new TMapeador();
+        }
+
+        private TMapeador mapeador;
 
 
         public void Atualizar(int id, TEntidade entidade)
@@ -31,7 +41,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             SqlCommand comandoEditar = conexao.CreateCommand();
             comandoEditar.CommandText = SqlEditar;
 
-            ConfigurarParametros(comandoEditar, entidade);
+            mapeador.ConfigurarParametros(comandoEditar, entidade);
 
             comandoEditar.ExecuteNonQuery();
 
@@ -54,7 +64,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             TEntidade entidade = null;
 
             if (leitorEntidades.Read())
-                entidade = ConverterParaEntidade(leitorEntidades);
+                entidade = mapeador.ConverterParaEntidade(leitorEntidades);
 
             conexao.Close();
 
@@ -84,7 +94,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             SqlCommand comandoInserir = conexao.CreateCommand();
             comandoInserir.CommandText = SqlInserir;
 
-            ConfigurarParametros(comandoInserir, novaEntidade);
+            mapeador.ConfigurarParametros(comandoInserir, novaEntidade);
 
             object id = comandoInserir.ExecuteScalar();
 
@@ -107,7 +117,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 
             while (leitorEntidades.Read())
             {
-                TEntidade entidade = ConverterParaEntidade(leitorEntidades);
+                TEntidade entidade = mapeador.ConverterParaEntidade(leitorEntidades);
 
                 entidades.Add(entidade);
 
@@ -117,9 +127,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 
             return entidades;
         }
-        public abstract TEntidade ConverterParaEntidade(SqlDataReader leitorEntidades);
-
-        public abstract void ConfigurarParametros(SqlCommand comandoEditar, TEntidade novaEntidade);
+      
 
     }
 }
