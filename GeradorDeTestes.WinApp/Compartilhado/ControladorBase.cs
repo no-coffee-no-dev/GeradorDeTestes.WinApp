@@ -19,8 +19,8 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public abstract bool BotaoVisualizarItensAtivado { get; }
         public abstract bool BotaoConfigurarDescontoAtivado { get; }
 
-
-
+        public abstract UserControl ObterListagem();
+        public abstract string ObterTipoCadastro();
         public abstract void Inserir();
         public abstract void Editar();
         public abstract void Deletar();

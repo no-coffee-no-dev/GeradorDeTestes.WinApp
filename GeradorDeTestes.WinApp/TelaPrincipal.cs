@@ -23,6 +23,54 @@ namespace GeradorDeTestes.WinApp
         public TelaPrincipal()
         {
             InitializeComponent();
+            Instancia = this;
+            labelRodape.Text = string.Empty;
+            lblTipoDeCadastro.Text = string.Empty;
+
+            //InicializarControladores();
+        }
+        public static TelaPrincipal Instancia
+        {
+            get;
+            private set;
+        }
+        public void AtualizarRodape(string mensagem)
+        {
+            labelRodape.Text = mensagem;
+        }
+
+        private void btnInserir_Click(object sender, EventArgs e)
+        {
+            controlador.Inserir();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            controlador.Editar();
+        }
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            controlador.Deletar();
+        }
+
+        private void disciplinasMenuItem_Click(object sender, EventArgs e)
+        {
+           // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+        }
+
+        private void materiaMenuItem_Click(object sender, EventArgs e)
+        {
+            //List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
+
+            //if (disciplinas.Count > 0)
+            //{
+            //    ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            //}
+            //else
+            //{
+            //    AtualizarRodape("Crie uma Disciplina Primeiro");
+            //}
+
         }
         public static TelaPrincipal Instancia
         {
