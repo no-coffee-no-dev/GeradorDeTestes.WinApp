@@ -19,6 +19,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             comandoEditar.Parameters.AddWithValue("OPCAOB", novaEntidade.opcoaoB);
             comandoEditar.Parameters.AddWithValue("OPCAOC", novaEntidade.opcoaoC);
             comandoEditar.Parameters.AddWithValue("OPCAOD", novaEntidade.opcoaoD);
+            comandoEditar.Parameters.AddWithValue("RESPOSTACORRETA", novaEntidade.respostaCorreta);
             comandoEditar.Parameters.AddWithValue("MATERIA_ID", novaEntidade.materia.id);
         }
 
@@ -30,12 +31,16 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             string opcaoB = Convert.ToString(leitorEntidades["OPCAOB"]);
             string opcaoC = Convert.ToString(leitorEntidades["OPCAOC"]);
             string opcaoD = Convert.ToString(leitorEntidades["OPCAOD"]);
+            string respostaCorreta = Convert.ToString(leitorEntidades["RESPOSTACORRETA"]);
             int materiaId = Convert.ToInt32(leitorEntidades["MATERIA_ID"]);
+
             Materia materia = new();
             materia.id = materiaId;
-            Questao questao = new Questao(titulo,opcaoA,opcaoB,opcaoC,opcaoD,materia);
+
+            Questao questao = new Questao(titulo,opcaoA,opcaoB,opcaoC,opcaoD,respostaCorreta,materia);
             questao.id = idQuestao;
-            return cliente;
+
+            return questao;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             txtRespostaC.Text = value.opcoaoC;
             txtRespostaD.Text = value.opcoaoD;
         }
-       
+
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
