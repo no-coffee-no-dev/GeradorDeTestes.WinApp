@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloQuestao;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 {
@@ -24,6 +19,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                          @OPCAOB,
                                          @OPCAOC,
                                          @OPCAOD,
+                                         @RESPOSTACORRETA,
                                          @MATERIA_ID
                                        );
                               SELECT SCOPE_IDENTITY();";
@@ -35,6 +31,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,[OPCAOB]
                                                   ,[OPCAOC]
                                                   ,[OPCAOD]
+                                                  ,[RESPOSTACORRETA]
                                                   ,[MATERIA_ID]
                                               FROM 
                                                 [DBO].[TBQUESTAO];";
@@ -49,6 +46,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,[OPCAOB]
                                                   ,[OPCAOC]
                                                   ,[OPCAOD]
+                                                  ,[RESPOSTACORRETA]
                                                   ,[MATERIA_ID]
                                               FROM 
                                                 [DBO].[TBQUESTAO]
@@ -61,6 +59,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                           ,[OPCAOB] = @OPCAOB
                                           ,[OPCAOC] = @OPCAOC
                                           ,[OPCAOD] = @OPCAOD
+                                          ,RESPOSTACORRETA] = @RESPOSTACORRETA
                                           ,[MATERIA_ID] = @MATERIA_ID
                                      WHERE 
                                            [ID] = @ID;";
