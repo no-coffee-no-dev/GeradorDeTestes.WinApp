@@ -15,7 +15,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                        ,[OPCAOB]
                                        ,[OPCAOC]
                                        ,[OPCAOD]
-,[RESPOSTACORRETA]
+                                       ,[RESPOSTACORRETA]
                                        ,[MATERIA_ID])
                                  VALUES
                                        (
