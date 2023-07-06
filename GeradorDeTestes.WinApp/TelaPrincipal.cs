@@ -1,3 +1,6 @@
+using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
+using GeradorDeTestes.WinApp.ModuloQuestao;
 using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinApp
@@ -10,23 +13,27 @@ namespace GeradorDeTestes.WinApp
 
         //IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
         //IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-        //IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+        IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
         //IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
+        private static TelaPrincipal telaPrincipal;
 
         public TelaPrincipal()
         {
             InitializeComponent();
-            Instancia = this;
-            labelRodape.Text = string.Empty;
-            lblTipoDeCadastro.Text = string.Empty;
+            telaPrincipal = this;
 
             //InicializarControladores();
         }
         public static TelaPrincipal Instancia
         {
-            get;
-            private set;
+            get
+            {
+                if (telaPrincipal == null)
+                    telaPrincipal = new TelaPrincipal();
+
+                return telaPrincipal;
+            }
         }
         public void AtualizarRodape(string mensagem)
         {
@@ -35,21 +42,27 @@ namespace GeradorDeTestes.WinApp
 
         private void btnInserir_Click(object sender, EventArgs e)
         {
-            controlador.Inserir();
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Inserir();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            controlador.Editar();
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Editar();
         }
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            controlador.Deletar();
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Deletar();
         }
 
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
-           // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
         }
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
@@ -69,8 +82,8 @@ namespace GeradorDeTestes.WinApp
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            //controlador = new ControladorQuestao(repositorioQuestao);
-            //ConfigurarTelaPrincipal(controlador);
+            controlador = new ControladorQuestao(repositorioQuestao);
+            ConfigurarTelaPrincipal(controlador);
         }
 
         private void testeMenuItem_Click(object sender, EventArgs e)
@@ -116,6 +129,15 @@ namespace GeradorDeTestes.WinApp
             panelRegistros.Controls.Add(listagem);
         }
 
+        private bool VerificaControladorVazio(ControladorBase controlador)
+        {
+            if (controlador == null)
+            {
+                MessageBox.Show("Selecione uma opção de cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
+        }
 
 
         //private void InicializarControladores()

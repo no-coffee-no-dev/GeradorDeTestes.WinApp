@@ -34,6 +34,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private void ConfigurarValores(Questao value)
         {
+            if (value.materia != null)
+            {
+                cmbBoxMateria.SelectedItem = value.materia;
+            }
+
             txtTitulo.Text = value.titulo;
             txtRespostaA.Text = value.opcoaoA;
             txtRespostaB.Text = value.opcoaoB;
@@ -55,6 +60,20 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             }
 
         }
+       
+        private void AdicionaAComboBox(IRepositorioCliente repositorioCliente)
+        {
+            foreach (Cliente cliente in repositorioCliente.RetornarTodos())
+            {
+                CBX_CLIENTE.Items.Add(cliente);
+            }
+
+            foreach (Tema tema in repositorioTema.RetornarTodos())
+            {
+                CBX_TEMA.Items.Add(tema);
+            }
+        }
+
 
         private Questao ObterQuestao()
         {

@@ -108,7 +108,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             }
         }
 
-        public UserControl ObterListagem()
+        public override UserControl ObterListagem()
         {
             if (tabelaCategoria == null)
                 tabelaCategoria = new TabelaQuestoesControl();
@@ -118,7 +118,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             return tabelaCategoria;
         }
 
-        public string ObterTipoCadastro()
+        public override string ObterTipoCadastro()
         {
             return "Cadastro de Contatos";
         }
