@@ -57,7 +57,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (erros.Length > 0)
             {
-                //TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
                 DialogResult = DialogResult.None;
             }
 
