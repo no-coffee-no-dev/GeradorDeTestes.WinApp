@@ -23,9 +23,7 @@ namespace GeradorDeTestes.WinApp
         public TelaPrincipal()
         {
             InitializeComponent();
-            Instancia = this;
-            labelRodape.Text = string.Empty;
-            lblTipoDeCadastro.Text = string.Empty;
+            telaPrincipal = this;
 
             //InicializarControladores();
         }
@@ -185,6 +183,15 @@ namespace GeradorDeTestes.WinApp
             return false;
         }
 
+        private bool VerificaControladorVazio(ControladorBase controlador)
+        {
+            if (controlador == null)
+            {
+                MessageBox.Show("Selecione uma opção de cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
+        }
 
 
 

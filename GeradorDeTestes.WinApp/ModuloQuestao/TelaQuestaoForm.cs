@@ -36,6 +36,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private void ConfigurarValores(Questao value)
         {
+            if (value.materia != null)
+            {
+                cmbBoxMateria.SelectedItem = value.materia;
+            }
+
             txtTitulo.Text = value.titulo;
             txtRespostaA.Text = value.opcoaoA;
             txtRespostaB.Text = value.opcoaoB;
