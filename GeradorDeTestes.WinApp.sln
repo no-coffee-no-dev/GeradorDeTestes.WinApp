@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2- Domínio", "2- Domínio"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3- Infra", "3- Infra", "{807A1203-5A16-4F96-94EC-00AB8FD67688}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDeTestes.Infra.Dados.Sql", "GeradorDeTestes.Infra.Dados.Sql\GeradorDeTestes.Infra.Dados.Sql.csproj", "{05F6691E-E379-4451-8B84-AFC75C5D952F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorDeTestes.Infra.Dados.Sql", "GeradorDeTestes.Infra.Dados.Sql\GeradorDeTestes.Infra.Dados.Sql.csproj", "{05F6691E-E379-4451-8B84-AFC75C5D952F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeradorDeTestes.Dominio", "GeradorDeTestes.Dominio\GeradorDeTestes.Dominio.csproj", "{ACDBE592-1B3B-442C-9279-1A5A07DA0B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GeradorDeTestes.Dominio", "GeradorDeTestes.Dominio\GeradorDeTestes.Dominio.csproj", "{ACDBE592-1B3B-442C-9279-1A5A07DA0B77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
