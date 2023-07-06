@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,13 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public class ControladorQuestao : ControladorBase
     {
         private IRepositorioQuestao repositorioQuestao;
+        private IRepositorioMateria repositorioMateria;
         private TabelaQuestoesControl tabelaCategoria;
 
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao)
+        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria)
         {
             this.repositorioQuestao = repositorioQuestao;
+            this.repositorioMateria = repositorioMateria;
         }
 
         public override string ToolTipInserir => "Inserir nova Questão";
@@ -78,7 +81,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 return;
             }
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm();
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria);
             telaQuestao.Questao = questao;
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
@@ -94,7 +97,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
         public override void Inserir()
         {
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm();
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria);
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
 
@@ -108,7 +111,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             }
         }
 
-        public UserControl ObterListagem()
+        public override UserControl ObterListagem()
         {
             if (tabelaCategoria == null)
                 tabelaCategoria = new TabelaQuestoesControl();
@@ -118,7 +121,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             return tabelaCategoria;
         }
 
-        public string ObterTipoCadastro()
+        public override string ObterTipoCadastro()
         {
             return "Cadastro de Contatos";
         }

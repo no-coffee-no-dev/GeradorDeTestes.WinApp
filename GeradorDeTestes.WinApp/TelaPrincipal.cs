@@ -1,3 +1,7 @@
+using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
+using GeradorDeTestes.WinApp.ModuloQuestao;
 using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinApp
@@ -10,16 +14,16 @@ namespace GeradorDeTestes.WinApp
 
         //IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
         //IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-        //IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+        IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+        IRepositorioMateria repositorioMateria = null;
         //IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
+        private static TelaPrincipal telaPrincipal;
 
         public TelaPrincipal()
         {
             InitializeComponent();
-            Instancia = this;
-            labelRodape.Text = string.Empty;
-            lblTipoDeCadastro.Text = string.Empty;
+            telaPrincipal = this;
 
             //InicializarControladores();
         }
@@ -66,13 +70,66 @@ namespace GeradorDeTestes.WinApp
             //}
 
         }
+        public static TelaPrincipal Instancia
+        {
+            get
+            {
+                if (telaPrincipal == null)
+                    telaPrincipal = new TelaPrincipal();
+
+                return telaPrincipal;
+            }
+        }
+        public void AtualizarRodape(string mensagem)
+        {
+            labelRodape.Text = mensagem;
+        }
+
+        private void btnInserir_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Inserir();
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Editar();
+        }
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.Deletar();
+        }
+
+        private void disciplinasMenuItem_Click(object sender, EventArgs e)
+        {
+            // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+        }
+
+        private void materiaMenuItem_Click(object sender, EventArgs e)
+        {
+            //List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
+
+            //if (disciplinas.Count > 0)
+            //{
+            //    ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            //}
+            //else
+            //{
+            //    AtualizarRodape("Crie uma Disciplina Primeiro");
+            //}
+
+        }
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            //controlador = new ControladorQuestao(repositorioQuestao);
-            //ConfigurarTelaPrincipal(controlador);
+            controlador = new ControladorQuestao(repositorioQuestao,repositorioMateria);
+            ConfigurarTelaPrincipal(controlador);
         }
-
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
             //ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
@@ -114,6 +171,26 @@ namespace GeradorDeTestes.WinApp
             listagem.Dock = DockStyle.Fill;
 
             panelRegistros.Controls.Add(listagem);
+        }
+
+        private bool VerificaControladorVazio(ControladorBase controlador)
+        {
+            if (controlador == null)
+            {
+                MessageBox.Show("Selecione uma opção de cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
+        }
+
+        private bool VerificaControladorVazio(ControladorBase controlador)
+        {
+            if (controlador == null)
+            {
+                MessageBox.Show("Selecione uma opção de cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+            return false;
         }
 
 

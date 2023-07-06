@@ -52,13 +52,13 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
             string nome;
             public override void Atualizar(Disiplina entidadeAtualizada)
             {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
+        }
 
-            public override string[] Validar()
-            {
-                throw new NotImplementedException();
-            }
+        public override string[] Validar()
+        {
+            throw new NotImplementedException();
+        }
         }
         #endregion
     }

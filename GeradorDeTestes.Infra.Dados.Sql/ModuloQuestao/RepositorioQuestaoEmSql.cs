@@ -2,7 +2,7 @@
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 {
-    public class RepositorioQuestaoEmSql : RepositorioBaseEmSql<Questao, MapeadorQuestao>
+    public class RepositorioQuestaoEmSql : RepositorioBaseEmSql<Questao, MapeadorQuestao>, IRepositorioQuestao
     {
         public override string SqlInserir => @"INSERT INTO [DBO].[TBQUESTAO]
                                        ([TITULO]
@@ -63,5 +63,10 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                           ,[MATERIA_ID] = @MATERIA_ID
                                      WHERE 
                                            [ID] = @ID;";
+
+        public List<string> RetornarTodasAsOpcoes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

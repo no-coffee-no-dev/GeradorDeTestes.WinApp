@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +15,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
-        public TelaQuestaoForm()
+        public TelaQuestaoForm(IRepositorioMateria repositorioMateria)
         {
             InitializeComponent();
+            AdicionaAComboBox(repositorioMateria);
             this.ConfigurarDialog();
         }
 
@@ -34,6 +36,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private void ConfigurarValores(Questao value)
         {
+            if (value.materia != null)
+            {
+                cmbBoxMateria.SelectedItem = value.materia;
+            }
+
             txtTitulo.Text = value.titulo;
             txtRespostaA.Text = value.opcoaoA;
             txtRespostaB.Text = value.opcoaoB;
@@ -55,6 +62,15 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             }
 
         }
+       
+        private void AdicionaAComboBox(IRepositorioMateria repositorioMateria)
+        {
+            foreach (Materia materia in repositorioMateria.RetornarTodos())
+            {
+                cmbBoxMateria.Items.Add(materia);
+            }
+        }
+
 
         private Questao ObterQuestao()
         {

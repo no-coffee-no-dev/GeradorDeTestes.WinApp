@@ -40,13 +40,15 @@
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
+            lblTipoDeCadastro = new ToolStripLabel();
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
-            lblTipoDeCadastro = new ToolStripLabel();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton1 = new ToolStripButton();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
-            panelRegistros.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -56,7 +58,7 @@
             menu.Items.AddRange(new ToolStripItem[] { cadastrosMenuItem, relatóriosToolStripMenuItem });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(783, 24);
+            menu.Size = new Size(815, 24);
             menu.TabIndex = 1;
             menu.Text = "menuStrip1";
             // 
@@ -108,13 +110,12 @@
             // toolStrip1
             // 
             toolStrip1.AutoSize = false;
-            toolStrip1.Enabled = false;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, lblTipoDeCadastro });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, toolStripButton1, toolStripSeparator1, lblTipoDeCadastro });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(783, 35);
+            toolStrip1.Size = new Size(815, 35);
             toolStrip1.Stretch = true;
             toolStrip1.TabIndex = 2;
             toolStrip1.Text = "toolStrip1";
@@ -156,23 +157,27 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.Click += btnExcluir_Click;
             // 
+            // lblTipoDeCadastro
+            // 
+            lblTipoDeCadastro.Name = "lblTipoDeCadastro";
+            lblTipoDeCadastro.Size = new Size(91, 32);
+            lblTipoDeCadastro.Text = "TipoDeCadastro";
+            // 
             // panelRegistros
             // 
-            panelRegistros.Controls.Add(statusStrip1);
-            panelRegistros.Dock = DockStyle.Fill;
             panelRegistros.Location = new Point(0, 59);
             panelRegistros.Name = "panelRegistros";
-            panelRegistros.Size = new Size(783, 351);
+            panelRegistros.Size = new Size(815, 338);
             panelRegistros.TabIndex = 4;
             // 
             // statusStrip1
             // 
             statusStrip1.ImageScalingSize = new Size(20, 20);
             statusStrip1.Items.AddRange(new ToolStripItem[] { labelRodape });
-            statusStrip1.Location = new Point(0, 329);
+            statusStrip1.Location = new Point(0, 400);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(783, 22);
-            statusStrip1.TabIndex = 3;
+            statusStrip1.Size = new Size(815, 22);
+            statusStrip1.TabIndex = 5;
             statusStrip1.Text = "statusStrip1";
             // 
             // labelRodape
@@ -181,18 +186,35 @@
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
             // 
-            // lblTipoDeCadastro
+            // toolStripSeparator1
             // 
-            lblTipoDeCadastro.Name = "lblTipoDeCadastro";
-            lblTipoDeCadastro.Size = new Size(91, 32);
-            lblTipoDeCadastro.Text = "TipoDeCadastro";
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 35);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 35);
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = Properties.Resources.btnVisualizarItens;
+            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Padding = new Padding(7);
+            toolStripButton1.Size = new Size(50, 32);
+            toolStripButton1.Text = "toolStripButton1";
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // TelaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(783, 410);
+            ClientSize = new Size(815, 422);
+            Controls.Add(statusStrip1);
             Controls.Add(panelRegistros);
             Controls.Add(toolStrip1);
             Controls.Add(menu);
@@ -204,8 +226,6 @@
             menu.PerformLayout();
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
-            panelRegistros.ResumeLayout(false);
-            panelRegistros.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             ResumeLayout(false);
@@ -225,9 +245,12 @@
         private System.Windows.Forms.ToolStripButton btnEditar;
         private System.Windows.Forms.ToolStripButton btnExcluir;
         private System.Windows.Forms.Panel panelRegistros;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel labelRodape;
         private ToolStripMenuItem relatóriosToolStripMenuItem;
         private ToolStripLabel lblTipoDeCadastro;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel labelRodape;
+        private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton toolStripButton1;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }
