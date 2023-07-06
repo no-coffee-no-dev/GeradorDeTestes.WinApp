@@ -4,8 +4,11 @@ using System.Linq;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using Microsoft.Data.SqlClient;
+using static GeradorDeTestes.Dominio.ModuloMateria.Materia;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 {
@@ -32,10 +35,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             string opcaoC = Convert.ToString(leitorEntidades["OPCAOC"]);
             string opcaoD = Convert.ToString(leitorEntidades["OPCAOD"]);
             string respostaCorreta = Convert.ToString(leitorEntidades["RESPOSTACORRETA"]);
-            int materiaId = Convert.ToInt32(leitorEntidades["MATERIA_ID"]);
 
-            Materia materia = new();
-            materia.id = materiaId;
+
+            Materia materia = new MapeadorMateria().ConverterParaEntidade(leitorEntidades);
 
             Questao questao = new Questao(titulo,opcaoA,opcaoB,opcaoC,opcaoD,respostaCorreta,materia);
             questao.id = idQuestao;

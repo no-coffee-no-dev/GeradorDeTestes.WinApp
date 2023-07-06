@@ -1,5 +1,6 @@
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using System.Windows.Forms;
@@ -15,7 +16,7 @@ namespace GeradorDeTestes.WinApp
         //IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
         //IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
-        IRepositorioMateria repositorioMateria = null;
+        IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         //IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
         private static TelaPrincipal telaPrincipal;
@@ -24,52 +25,8 @@ namespace GeradorDeTestes.WinApp
         {
             InitializeComponent();
             telaPrincipal = this;
-
-            //InicializarControladores();
-        }
-        public static TelaPrincipal Instancia
-        {
-            get;
-            private set;
-        }
-        public void AtualizarRodape(string mensagem)
-        {
-            labelRodape.Text = mensagem;
         }
 
-        private void btnInserir_Click(object sender, EventArgs e)
-        {
-            controlador.Inserir();
-        }
-
-        private void btnEditar_Click(object sender, EventArgs e)
-        {
-            controlador.Editar();
-        }
-        private void btnExcluir_Click(object sender, EventArgs e)
-        {
-            controlador.Deletar();
-        }
-
-        private void disciplinasMenuItem_Click(object sender, EventArgs e)
-        {
-           // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
-        }
-
-        private void materiaMenuItem_Click(object sender, EventArgs e)
-        {
-            //List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
-
-            //if (disciplinas.Count > 0)
-            //{
-            //    ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
-            //}
-            //else
-            //{
-            //    AtualizarRodape("Crie uma Disciplina Primeiro");
-            //}
-
-        }
         public static TelaPrincipal Instancia
         {
             get
@@ -183,15 +140,6 @@ namespace GeradorDeTestes.WinApp
             return false;
         }
 
-        private bool VerificaControladorVazio(ControladorBase controlador)
-        {
-            if (controlador == null)
-            {
-                MessageBox.Show("Selecione uma opção de cadastro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return true;
-            }
-            return false;
-        }
 
 
 

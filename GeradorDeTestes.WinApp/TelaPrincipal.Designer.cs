@@ -206,7 +206,6 @@
             toolStripButton1.Padding = new Padding(7);
             toolStripButton1.Size = new Size(50, 32);
             toolStripButton1.Text = "toolStripButton1";
-            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // TelaPrincipal
             // 

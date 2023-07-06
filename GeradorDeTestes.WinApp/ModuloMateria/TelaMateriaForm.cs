@@ -22,7 +22,7 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
             this.ConfigurarDialog();
         }
 
-        public Materia materia
+        public Materia Materia
         {
             set
             {
@@ -45,11 +45,11 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
             string SerieSelecionada = "";
             if (rbSerie1.Checked)
             {
-                SerieSelecionada = txtRespostaA.Text;
+                SerieSelecionada = "1°";
             }
             if (rbSerie2.Checked)
             {
-                SerieSelecionada = txtRespostaB.Text;
+                SerieSelecionada = "2°";
             }
             
             

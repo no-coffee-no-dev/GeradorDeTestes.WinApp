@@ -25,32 +25,36 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                               SELECT SCOPE_IDENTITY();";
 
         public override string SqlBuscarTodos => @"SELECT 
-                                                   [ID]
-                                                  ,[TITULO]
-                                                  ,[OPCAOA]
-                                                  ,[OPCAOB]
-                                                  ,[OPCAOC]
-                                                  ,[OPCAOD]
-                                                  ,[RESPOSTACORRETA]
-                                                  ,[MATERIA_ID]
+                                                   TBQ.[ID]
+                                                  ,TBQ.[TITULO]
+                                                  ,TBQ.[OPCAOA]
+                                                  ,TBQ.[OPCAOB]
+                                                  ,TBQ.[OPCAOC]
+                                                  ,TBQ.[OPCAOD]
+                                                  ,TBQ.[RESPOSTACORRETA]
+                                                  ,TBQ.[MATERIA_ID]
+                                                  ,TBM.[NOME]
+                                                  ,TBM.[SERIE]
                                               FROM 
-                                                [DBO].[TBQUESTAO];";
+                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID;";
 
         public override string SqlDeletar => @"DELETE FROM [dbo].[TBQuestao]
                                                  WHERE [ID] = @ID;";
 
         public override string SqlBuscaId => @"SELECT 
-                                                   [ID]
-                                                  ,[TITULO]
-                                                  ,[OPCAOA]
-                                                  ,[OPCAOB]
-                                                  ,[OPCAOC]
-                                                  ,[OPCAOD]
-                                                  ,[RESPOSTACORRETA]
-                                                  ,[MATERIA_ID]
+                                                   TBQ.[ID]
+                                                  ,TBQ.[TITULO]
+                                                  ,TBQ.[OPCAOA]
+                                                  ,TBQ.[OPCAOB]
+                                                  ,TBQ.[OPCAOC]
+                                                  ,TBQ.[OPCAOD]
+                                                  ,TBQ.[RESPOSTACORRETA]
+                                                  ,TBQ.[MATERIA_ID]
+                                                  ,TBM.[NOME]
+                                                  ,TBM.[SERIE]
                                               FROM 
-                                                [DBO].[TBQUESTAO]
-                                              WHERE [ID] = @ID;";
+                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                              WHERE TBQ.[ID] = @ID;";
 
         public override string SqlEditar => @"UPDATE [DBO].[TBQUESTAO]
                                        SET 
