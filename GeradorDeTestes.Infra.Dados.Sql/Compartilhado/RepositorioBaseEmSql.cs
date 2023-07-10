@@ -14,7 +14,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
     {
 
         public const string ENDERECOBANCO = "Data Source=(LocalDB)\\MSSqlLocalDB;" +
-              "Initial Catalog = GeradorTestesDB;" +
+              "Initial Catalog = GeradorDeTestes;" +
               "Integrated Security=True;" +
               "Pooling=False";
 

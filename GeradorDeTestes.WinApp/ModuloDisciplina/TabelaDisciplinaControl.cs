@@ -1,4 +1,6 @@
 ﻿
+using GeradorDeTestes.Dominio.ModuloDisciplina;
+
 namespace GeradorDeTestes.WinApp.ModuloDisciplina
 {
     public partial class TabelaDisciplinaControl : UserControl
@@ -36,10 +38,10 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
 
             tabelaDisciplina.Columns.AddRange(colunas);
         }
-        public void AtualizarRegistros(List<Disciplina> disciplina)
+        public void AtualizarRegistros(List<Disciplina> disciplinas)
         {
             tabelaDisciplina.Rows.Clear();
-            foreach (Disciplina disciplina in disciplina)
+            foreach (Disciplina disciplina in disciplinas)
             {
                 tabelaDisciplina.Rows.Add(disciplina.id, disciplina.nome);
             }

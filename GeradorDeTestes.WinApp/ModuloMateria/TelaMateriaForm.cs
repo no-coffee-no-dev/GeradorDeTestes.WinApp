@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,10 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
         {
             InitializeComponent();
             this.ConfigurarDialog();
+        }
+
+        public TelaMateriaForm(IRepositorioDisciplina repositorioDisciplina)
+        {
         }
 
         public Materia Materia
