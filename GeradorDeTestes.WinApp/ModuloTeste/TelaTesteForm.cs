@@ -2,6 +2,7 @@
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloTeste;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,14 +17,18 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 {
     public partial class TelaTesteForm : Form
     {
-        public TelaTesteForm(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
+        public Materia materiaSelecionada;
+        public IRepositorioQuestao repositorioQuestao;
+        public TelaTesteForm(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina, IRepositorioQuestao repositorioQuestao)
         {
             InitializeComponent();
+            this.repositorioQuestao = repositorioQuestao;
             AdicionaAComboBox(repositorioMateria, repositorioDisciplina);
             this.ConfigurarDialog();
         }
 
         private Teste teste;
+        private List<Questao> listaQuestoes;
         public Teste Teste
         {
             set
@@ -33,6 +38,13 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             get
             {
                 return teste;
+            }
+        }
+        public List<Questao> ListaQuestoes
+        {
+            get
+            {
+                return listaQuestoes;
             }
         }
 
@@ -69,26 +81,64 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
             string titulo = txtTitulo.Text;
             DateTime dataDeGeracao = DateTime.UtcNow.Date;
+            materiaSelecionada = (Materia)cmbBoxMateria.SelectedItem;
+            Disciplina disciplina = (Disciplina)cmbBoxDisciplina.SelectedItem;
+            int quatidadeQuestoes = Convert.ToInt32(nmrQtdQuestoes.Value);
+            List<Questao> questoes = new();
+
+            foreach (Questao questao in listQuestoesAleatorias.Items)
+            {
+                questoes.Add(questao);
+            }
 
 
-
-
-            Materia materia = (Materia)cmbBoxMateria.SelectedItem;
-
-
-            return questao = new Questao(titulo, opcaoA, opcaoB, opcaoC, opcaoD, respostaCorreta, materia);
+            return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
         }
 
         private void btnSortearQuestoes_Click(object sender, EventArgs e)
         {
+            ConfigurarListaAleatoria(repositorioQuestao);
         }
-        private void ConfigurarListaAleatoria()
+        private void ConfigurarListaAleatoria(IRepositorioQuestao repositorioQuestao)
         {
-            foreach (Materia materia in repositorioMateria.RetornarTodos())
+            listQuestoesAleatorias.Items.Clear();
+            materiaSelecionada = (Materia)cmbBoxMateria.SelectedItem;
+
+            for (int i = 0; i < nmrQtdQuestoes.Value; i++)
             {
-                cmbBoxMateria.Items.Add(materia);
+                Questao questao = null;
+                Random Aleatorio = new Random();
+                int numeroAleatorio = Aleatorio.Next(0, Convert.ToInt32(nmrQtdQuestoes.Value));
+                if (nmrQtdQuestoes.Value >= repositorioQuestao.RetornarTodasAsQuestoesDaMateria(materiaSelecionada).Count)
+                    return;
+                else
+                    questao = repositorioQuestao.RetornarTodasAsQuestoesDaMateria(materiaSelecionada).ToArray()[Convert.ToInt32(numeroAleatorio)];
+
+                listQuestoesAleatorias.Items.Add(questao);
+
+
             }
+
         }
 
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            teste = ObterTeste();
+            listaQuestoes = new();
+            foreach (Questao questao in listQuestoesAleatorias.Items)
+            {
+                listaQuestoes.Add(questao);
+            }
+            string[] erros = teste.Validar();
+
+            if (erros.Length > 0)
+            {
+                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                DialogResult = DialogResult.None;
+            }
+                              
+            if (txtId.Text != "0")
+                teste.id = Convert.ToInt32(txtId.Text);
+        }
     }
 }

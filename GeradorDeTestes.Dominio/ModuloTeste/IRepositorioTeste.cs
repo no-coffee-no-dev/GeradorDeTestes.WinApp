@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace GeradorDeTestes.Dominio.ModuloTeste
 {
     public interface IRepositorioTeste : IRepositorio<Teste>
     {
+        public void Inserir(Teste novaEntidade, List<Questao> questoes);
     }
 }

@@ -28,6 +28,11 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
             this.materia = materia;
         }
 
+        public Questao(string titulo)
+        {
+            this.titulo = titulo;
+        }
+
         public override void Atualizar(Questao entidadeAtualizada)
         {
             titulo = entidadeAtualizada.titulo;

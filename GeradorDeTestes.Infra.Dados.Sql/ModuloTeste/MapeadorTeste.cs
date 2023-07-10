@@ -49,11 +49,10 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
         private List<Questao> ObterQuestoes(SqlDataReader leitorEntidades)
         {
             List<Questao> questoes = new();
-                     
-            Questao questao = new MapeadorQuestao().ConverterParaEntidade(leitorEntidades);
-
+            Questao questao = new MapeadorQuestao().ConverterParaQuestaoDoTeste(leitorEntidades);
             questoes.Add(questao);
-
+                   
+            
             return questoes;
         }
     }

@@ -24,7 +24,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 
         public override string SqlBuscarTodos => @"SELECT 
                                                    [ID]
-                                                  ,[NOME]
+                                                  ,[NOME] as NOME_MATERIA
                                                   ,[SERIE]
                                                   ,[ID_DISCIPLINA]
                                               FROM 
@@ -34,7 +34,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 
         public override string SqlBuscaId => @"SELECT 
                                                 [ID]
-                                               ,[NOME]
+                                               ,[NOME] as NOME_MATERIA
                                                ,[SERIE]
                                                ,[ID_DISCIPLINA]                                             
                                               FROM 

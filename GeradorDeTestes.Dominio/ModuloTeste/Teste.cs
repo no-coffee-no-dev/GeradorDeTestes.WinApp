@@ -42,7 +42,14 @@ namespace GeradorDeTestes.Dominio.ModuloTeste
 
         public override string[] Validar()
         {
-            throw new NotImplementedException();
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(titulo))
+                erros.Add("O campo 'titulo' é obrigatório");
+            if (listaQuestoes.Count < 1)
+                erros.Add("O Teste tem q ter no mínimo 1 questão");
+
+            return erros.ToArray();
         }
     }
 }

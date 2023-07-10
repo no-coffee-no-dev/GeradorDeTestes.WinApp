@@ -1,9 +1,14 @@
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Dominio.ModuloTeste;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloTeste;
 using GeradorDeTestes.WinApp.ModuloMateria;
 using GeradorDeTestes.WinApp.ModuloQuestao;
+using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
 
 namespace GeradorDeTestes.WinApp
@@ -14,11 +19,11 @@ namespace GeradorDeTestes.WinApp
         private ControladorBase controlador;
         private Dictionary<string, ControladorBase> controladores;
 
-        //IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
+        IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
         //IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
         IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-        //IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+        IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
 
         private static TelaPrincipal telaPrincipal;
 
@@ -88,8 +93,10 @@ namespace GeradorDeTestes.WinApp
         }
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
-            //ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria,repositorioDisciplina,repositorioTeste);
+            ConfigurarTelaPrincipal(controlador);
         }
+    
 
      
     

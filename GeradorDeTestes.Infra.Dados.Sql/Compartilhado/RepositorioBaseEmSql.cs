@@ -81,7 +81,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             conexao.Close();
         }
 
-        public void Inserir(TEntidade novaEntidade)
+        public virtual void Inserir(TEntidade novaEntidade)
         {
             SqlConnection conexao = new(ENDERECOBANCO);
             conexao.Open();

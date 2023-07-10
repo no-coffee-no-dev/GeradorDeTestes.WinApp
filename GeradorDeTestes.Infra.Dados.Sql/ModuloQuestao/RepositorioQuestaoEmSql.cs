@@ -1,5 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using Microsoft.Data.SqlClient;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
@@ -87,7 +88,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,TBQ.[OPCAOD]
                                                   ,TBQ.[RESPOSTACORRETA]
                                                   ,TBQ.[MATERIA_ID]
-                                                  ,TBM.[NOME]
+                                                  ,TBM.[NOME] as NOME_MATERIA
                                                   ,TBM.[SERIE]
                                               FROM 
                                                 [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
@@ -127,6 +128,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             comandoSelecionarTodasQueatoesDeUmaMateria.CommandText = SqlBuscarQuestoesDaMateria;
 
             comandoSelecionarTodasQueatoesDeUmaMateria.Parameters.AddWithValue("ID", materia.id);
+            
 
             SqlDataReader leitorEntidades = comandoSelecionarTodasQueatoesDeUmaMateria.ExecuteReader();
 
