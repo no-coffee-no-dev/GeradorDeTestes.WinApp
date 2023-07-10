@@ -40,7 +40,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             {
                 cmbBoxMateria.SelectedItem = value.materia;
             }
-
+            txtId.Text = value.id.ToString();
             txtTitulo.Text = value.titulo;
             txtRespostaA.Text = value.opcoaoA;
             txtRespostaB.Text = value.opcoaoB;
@@ -61,8 +61,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 DialogResult = DialogResult.None;
             }
 
+            if (txtId.Text != "0")
+                questao.id = Convert.ToInt32(txtId.Text);
         }
-       
+
         private void AdicionaAComboBox(IRepositorioMateria repositorioMateria)
         {
             foreach (Materia materia in repositorioMateria.RetornarTodos())
@@ -74,6 +76,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private Questao ObterQuestao()
         {
+            
             string titulo = txtTitulo.Text;
             string opcaoA = txtRespostaA.Text;
             string opcaoB = txtRespostaB.Text;

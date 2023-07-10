@@ -1,12 +1,6 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
-using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static GeradorDeTestes.Dominio.ModuloMateria.Materia;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
 {
@@ -25,7 +19,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
             int idMateria = Convert.ToInt32(leitorEntidades["ID"]);
             string nome = Convert.ToString(leitorEntidades["NOME"]);
             string serie = Convert.ToString(leitorEntidades["SERIE"]);
-            Materia materia = new(nome, new Disiplina(), serie);
+            Materia materia = new(nome, new Disciplina(""), serie);
             materia.id = idMateria;
             return materia;
 

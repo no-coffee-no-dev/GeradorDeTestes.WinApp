@@ -46,7 +46,7 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
         private Materia ObterMateria()
         {
             string nome = txtNome.Text;
-            Disiplina disiplina = (Disiplina)cbxDisiplina.SelectedItem;
+            Disciplina disiplina = (Disciplina)cbxDisiplina.SelectedItem;
             string SerieSelecionada = "";
             if (rbSerie1.Checked)
             {

@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
     {
 
         public string nome;
-        public Disiplina disiplina;
+        public Disciplina disiplina;
         public string serie;
 
-        public Materia(string nome, Disiplina disiplina, string serie) {
+        public Materia(string nome, Disciplina disiplina, string serie) {
 
             this.nome = nome;
             this.disiplina = disiplina;
@@ -43,23 +44,9 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
             
         }
 
-
-
-
-        #region Remover depois
-        public class Disiplina : EntidadeBase<Disiplina>
-        {   
-            string nome;
-            public override void Atualizar(Disiplina entidadeAtualizada)
-            {
-            throw new NotImplementedException();
-        }
-
-        public override string[] Validar()
+        public override string ToString()
         {
-            throw new NotImplementedException();
+            return $"{nome}";
         }
-        }
-        #endregion
     }
 }
