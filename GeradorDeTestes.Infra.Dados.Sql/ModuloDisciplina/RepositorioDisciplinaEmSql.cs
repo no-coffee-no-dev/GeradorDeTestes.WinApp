@@ -9,7 +9,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 {
     public class RepositorioDisciplinaEmSql : RepositorioBaseEmSql<Disciplina, MapeadorDisciplina>, IRepositorioDisciplina
     {
-        public override string SqlInserir => throw new NotImplementedException();
+        public override string SqlInserir => @"INSERT INTO [DBO].[TBDISCIPLINA]
+                                       ([NOME]) VALUES (@NOME);
+                              SELECT SCOPE_IDENTITY();";
 
         public override string SqlBuscarTodos => @"SELECT [ID]
                                                       ,[NOME]

@@ -58,7 +58,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             {
                 listQuestoesAleatorias.Items.Add(item);
             }
-            
+
         }
 
         private void ConfigurarValores(Teste value)
@@ -148,7 +148,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
                 TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
                 DialogResult = DialogResult.None;
             }
-                              
+
             if (txtId.Text != "0")
                 teste.id = Convert.ToInt32(txtId.Text);
         }
