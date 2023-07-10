@@ -54,6 +54,11 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
 
             return erros.ToArray();
         }
+
+        public override string? ToString()
+        {
+            return $"{titulo}";
+        }
     }
 }
 

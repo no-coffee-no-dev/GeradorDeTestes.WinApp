@@ -1,4 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+using Microsoft.Data.SqlClient;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 {
@@ -63,14 +64,43 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                           ,[OPCAOB] = @OPCAOB
                                           ,[OPCAOC] = @OPCAOC
                                           ,[OPCAOD] = @OPCAOD
-                                          ,RESPOSTACORRETA] = @RESPOSTACORRETA
+                                          ,[RESPOSTACORRETA] = @RESPOSTACORRETA
                                           ,[MATERIA_ID] = @MATERIA_ID
                                      WHERE 
                                            [ID] = @ID;";
+        public string SqlBuscarRespostas => @"SELECT 
+                                                   TBQ.[OPCAOA]
+                                                  ,TBQ.[OPCAOB]
+                                                  ,TBQ.[OPCAOC]
+                                                  ,TBQ.[OPCAOD]
+                                                  ,TBQ.[RESPOSTACORRETA]
+                                              FROM 
+                                                [DBO].[TBQUESTAO] TBQ 
+                                              WHERE TBQ.[ID] = @ID;";
 
-        public List<string> RetornarTodasAsOpcoes()
+
+        public List<string> RetornarTodasAsOpcoes(Questao questao)
         {
-            throw new NotImplementedException();
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarTodasRespostas = conexao.CreateCommand();
+            comandoSelecionarTodasRespostas.CommandText = SqlBuscarRespostas;
+
+            comandoSelecionarTodasRespostas.Parameters.AddWithValue("ID", questao.id);
+
+            SqlDataReader leitorEntidades = comandoSelecionarTodasRespostas.ExecuteReader();
+
+            List<string> respostas = new();
+
+            while (leitorEntidades.Read())
+            {
+                respostas = mapeador.ConverterApenasRespostas(leitorEntidades);
+            }
+
+            conexao.Close();
+
+            return respostas;
         }
     }
 }

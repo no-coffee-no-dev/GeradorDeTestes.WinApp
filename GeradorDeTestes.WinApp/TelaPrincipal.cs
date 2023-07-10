@@ -2,6 +2,7 @@ using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
+using GeradorDeTestes.WinApp.ModuloMateria;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using System.Windows.Forms;
 
@@ -62,6 +63,12 @@ namespace GeradorDeTestes.WinApp
                 controlador.Deletar();
         }
 
+        private void btnVisualizarItems_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.VisualizarItems();
+        }
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
             // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
@@ -69,28 +76,23 @@ namespace GeradorDeTestes.WinApp
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
         {
-            //List<Disciplina> disciplinas = repositorioDisciplina.SelecionarTodos();
-
-            //if (disciplinas.Count > 0)
-            //{
-            //    ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
-            //}
-            //else
-            //{
-            //    AtualizarRodape("Crie uma Disciplina Primeiro");
-            //}
+            //controlador = new ControladorMateria(repositorioMateria);
+            //ConfigurarTelaPrincipal(controlador);
 
         }
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorQuestao(repositorioQuestao,repositorioMateria);
+            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria);
             ConfigurarTelaPrincipal(controlador);
         }
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
             //ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
         }
+
+     
+    
         private void ConfigurarBotoes(ControladorBase controlador)
         {
             btnInserir.Enabled = controlador.BotaoInserirAtivado;
@@ -104,6 +106,7 @@ namespace GeradorDeTestes.WinApp
             btnInserir.ToolTipText = controlador.ToolTipInserir;
             btnEditar.ToolTipText = controlador.ToolTipEditar;
             btnExcluir.ToolTipText = controlador.ToolTipExcluir;
+            btnVisualizarItems.ToolTipText = controlador.ToolTipVisualizarItens;
 
         }
 
@@ -139,6 +142,9 @@ namespace GeradorDeTestes.WinApp
             }
             return false;
         }
+
+
+
 
 
 

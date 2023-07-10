@@ -25,6 +25,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
         public override string ToolTipEditar => "Editar Questão existente";
 
         public override string ToolTipExcluir => "Excluir uma Questão existente";
+        public override string ToolTipVisualizarItens=> "Visualizar Respostas";
 
         public override bool BotaoInserirAtivado => true;
 
@@ -48,8 +49,8 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (questao == null)
             {
-                MessageBox.Show($"Selecione um cliente primeiro!",
-                    "Exclusão de Clientes",
+                MessageBox.Show($"Selecione uma Questã primeiro!",
+                    "Exclusão de Questões",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
 
@@ -73,8 +74,8 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (questao == null)
             {
-                MessageBox.Show($"Selecione um cliente primeiro!",
-                    "Edição de Clientes",
+                MessageBox.Show($"Selecione uma Questão primeiro!",
+                    "Edição de Questões",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
 
@@ -123,7 +124,15 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         public override string ObterTipoCadastro()
         {
-            return "Cadastro de Contatos";
+            return "Cadastro de Questões";
+        }
+
+        public override void VisualizarItems()
+        {
+
+            Questao questao = ObterQuestaoSelecionada();
+            TelaVisualizarItemsForm telaVisualizarItems = new TelaVisualizarItemsForm(repositorioQuestao, questao);
+            telaVisualizarItems.ShowDialog();
         }
 
         private Questao ObterQuestaoSelecionada()

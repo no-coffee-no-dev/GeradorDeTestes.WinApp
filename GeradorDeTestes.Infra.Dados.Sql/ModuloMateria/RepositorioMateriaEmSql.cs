@@ -26,14 +26,29 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
                                                    [ID]
                                                   ,[NOME]
                                                   ,[SERIE]
-                                                  ,[id_disciplina]
+                                                  ,[ID_DISCIPLINA]
                                               FROM 
-                                                [DBO].[TBMateria];";
+                                                [DBO].[TBMATERIA];";
 
-        public override string SqlDeletar => throw new NotImplementedException();
+        public override string SqlDeletar => @"DELETE FROM [TBMateria] WHERE [Id] = @Id ";
 
-        public override string SqlBuscaId => throw new NotImplementedException();
+        public override string SqlBuscaId => @"SELECT 
+                                                [ID]
+                                               ,[NOME]
+                                               ,[SERIE]
+                                               ,[ID_DISCIPLINA]                                             
+                                              FROM 
+                                                [DBO].[TBMATERIA]
+                                              WHERE [ID] = @ID;";
 
-        public override string SqlEditar => throw new NotImplementedException();
+        public override string SqlEditar => @"UPDATE [TBMATERIA] SET
+
+                                    [NOME] = @NOME
+                                   ,[SERIE] = @SERIE
+                                   ,[ID_DISCIPLINA] = @ID_DISCIPLINA
+
+                                  WHERE
+
+                                  [ID] = @ID";
     }
 }
