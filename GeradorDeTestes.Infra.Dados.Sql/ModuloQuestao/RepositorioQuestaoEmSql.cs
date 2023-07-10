@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using Microsoft.Data.SqlClient;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
@@ -77,6 +78,20 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                               FROM 
                                                 [DBO].[TBQUESTAO] TBQ 
                                               WHERE TBQ.[ID] = @ID;";
+        public string SqlBuscarQuestoesDaMateria => @"SELECT 
+                                                   TBQ.[ID]
+                                                  ,TBQ.[TITULO]
+                                                  ,TBQ.[OPCAOA]
+                                                  ,TBQ.[OPCAOB]
+                                                  ,TBQ.[OPCAOC]
+                                                  ,TBQ.[OPCAOD]
+                                                  ,TBQ.[RESPOSTACORRETA]
+                                                  ,TBQ.[MATERIA_ID]
+                                                  ,TBM.[NOME]
+                                                  ,TBM.[SERIE]
+                                              FROM 
+                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                                WHERE TBM.ID = @ID;";
 
 
         public List<string> RetornarTodasAsOpcoes(Questao questao)
@@ -101,6 +116,29 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             conexao.Close();
 
             return respostas;
+        }
+
+        public List<Questao> RetornarTodasAsQuestoesDaMateria(Materia materia)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarTodasQueatoesDeUmaMateria = conexao.CreateCommand();
+            comandoSelecionarTodasQueatoesDeUmaMateria.CommandText = SqlBuscarQuestoesDaMateria;
+
+            comandoSelecionarTodasQueatoesDeUmaMateria.Parameters.AddWithValue("ID", materia.id);
+
+            SqlDataReader leitorEntidades = comandoSelecionarTodasQueatoesDeUmaMateria.ExecuteReader();
+
+            List<Questao> questoes = new();
+
+            while (leitorEntidades.Read())
+            {
+                Questao questao = mapeador.ConverterParaEntidade(leitorEntidades);
+                questoes.Add(questao);
+            }
+            conexao.Close();
+            return questoes;
         }
     }
 }

@@ -35,14 +35,14 @@
             cmbBoxDisciplina = new ComboBox();
             label3 = new Label();
             cmbBoxMateria = new ComboBox();
-            numericUpDown1 = new NumericUpDown();
+            nmrQtdQuestoes = new NumericUpDown();
             label4 = new Label();
-            button1 = new Button();
+            btnSortearQuestoes = new Button();
             listQuestoesAleatorias = new ListBox();
             groupBox1 = new GroupBox();
             btnGravar = new Button();
             btnCancelar = new Button();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nmrQtdQuestoes).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -106,12 +106,12 @@
             cmbBoxMateria.Size = new Size(78, 23);
             cmbBoxMateria.TabIndex = 44;
             // 
-            // numericUpDown1
+            // nmrQtdQuestoes
             // 
-            numericUpDown1.Location = new Point(320, 149);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(32, 23);
-            numericUpDown1.TabIndex = 45;
+            nmrQtdQuestoes.Location = new Point(320, 149);
+            nmrQtdQuestoes.Name = "nmrQtdQuestoes";
+            nmrQtdQuestoes.Size = new Size(32, 23);
+            nmrQtdQuestoes.TabIndex = 45;
             // 
             // label4
             // 
@@ -122,14 +122,15 @@
             label4.TabIndex = 46;
             label4.Text = "Qtd. Questões:";
             // 
-            // button1
+            // btnSortearQuestoes
             // 
-            button1.Location = new Point(12, 149);
-            button1.Name = "button1";
-            button1.Size = new Size(145, 27);
-            button1.TabIndex = 47;
-            button1.Text = "Sortear Questões";
-            button1.UseVisualStyleBackColor = true;
+            btnSortearQuestoes.Location = new Point(12, 149);
+            btnSortearQuestoes.Name = "btnSortearQuestoes";
+            btnSortearQuestoes.Size = new Size(145, 27);
+            btnSortearQuestoes.TabIndex = 47;
+            btnSortearQuestoes.Text = "Sortear Questões";
+            btnSortearQuestoes.UseVisualStyleBackColor = true;
+            btnSortearQuestoes.Click += btnSortearQuestoes_Click;
             // 
             // listQuestoesAleatorias
             // 
@@ -180,9 +181,9 @@
             Controls.Add(btnCancelar);
             Controls.Add(btnGravar);
             Controls.Add(groupBox1);
-            Controls.Add(button1);
+            Controls.Add(btnSortearQuestoes);
             Controls.Add(label4);
-            Controls.Add(numericUpDown1);
+            Controls.Add(nmrQtdQuestoes);
             Controls.Add(cmbBoxMateria);
             Controls.Add(label3);
             Controls.Add(cmbBoxDisciplina);
@@ -192,7 +193,7 @@
             Controls.Add(txtTitulo);
             Name = "TelaTesteForm";
             Text = "Cadastro de Teste";
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nmrQtdQuestoes).EndInit();
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -207,9 +208,9 @@
         private ComboBox cmbBoxDisciplina;
         private Label label3;
         private ComboBox cmbBoxMateria;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown nmrQtdQuestoes;
         private Label label4;
-        private Button button1;
+        private Button btnSortearQuestoes;
         private ListBox listQuestoesAleatorias;
         private GroupBox groupBox1;
         private Button btnGravar;
