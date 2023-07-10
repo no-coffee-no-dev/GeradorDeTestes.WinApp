@@ -10,5 +10,6 @@ namespace GeradorDeTestes.Dominio.ModuloTeste
     public interface IRepositorioTeste : IRepositorio<Teste>
     {
         public void Inserir(Teste novaEntidade, List<Questao> questoes);
+        public List<Questao> RetornarTodasAsRespostas(int id);
     }
 }

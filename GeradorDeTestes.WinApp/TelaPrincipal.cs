@@ -88,7 +88,7 @@ namespace GeradorDeTestes.WinApp
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria);
+            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina);
             ConfigurarTelaPrincipal(controlador);
         }
         private void testeMenuItem_Click(object sender, EventArgs e)

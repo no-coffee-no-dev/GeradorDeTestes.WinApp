@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
-        public TelaQuestaoForm(IRepositorioMateria repositorioMateria)
+        public TelaQuestaoForm(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
-            AdicionaAComboBox(repositorioMateria);
+            AdicionaAComboBox(repositorioMateria,repositorioDisciplina);
             this.ConfigurarDialog();
         }
 
@@ -46,6 +47,26 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             txtRespostaB.Text = value.opcoaoB;
             txtRespostaC.Text = value.opcoaoC;
             txtRespostaD.Text = value.opcoaoD;
+            if(value.opcoaoA == value.respostaCorreta)
+            {
+                rdBtnOpcaoA.Checked = true;
+            }
+            if (value.opcoaoB == value.respostaCorreta)
+            {
+                rdBtnOpcaoB.Checked = true;
+            }
+            if (value.opcoaoC == value.respostaCorreta)
+            {
+                rdBtnOpcaoC.Checked = true;
+            }
+            if (value.opcoaoC == value.respostaCorreta)
+            {
+                rdBtnOpcaoC.Checked = true;
+            }
+            if (value.opcoaoD == value.respostaCorreta)
+            {
+                rdBtnOpcaoD.Checked = true;
+            }
         }
 
 
@@ -65,11 +86,15 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 questao.id = Convert.ToInt32(txtId.Text);
         }
 
-        private void AdicionaAComboBox(IRepositorioMateria repositorioMateria)
+        private void AdicionaAComboBox(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             foreach (Materia materia in repositorioMateria.RetornarTodos())
             {
                 cmbBoxMateria.Items.Add(materia);
+            }
+            foreach (Disciplina disciplina in repositorioDisciplina.RetornarTodos())
+            {
+                cmbBoxDisciplina.Items.Add(disciplina);
             }
         }
 

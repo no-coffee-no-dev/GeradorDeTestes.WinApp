@@ -42,12 +42,24 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         }
         public List<Questao> ListaQuestoes
         {
+            set
+            {
+                ConfigurarLista(value);
+            }
             get
             {
                 return listaQuestoes;
             }
         }
 
+        private void ConfigurarLista(List<Questao> value)
+        {
+            foreach (Questao item in value)
+            {
+                listQuestoesAleatorias.Items.Add(item);
+            }
+            
+        }
 
         private void ConfigurarValores(Teste value)
         {

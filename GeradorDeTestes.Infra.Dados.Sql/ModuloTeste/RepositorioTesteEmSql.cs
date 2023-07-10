@@ -1,11 +1,13 @@
 ﻿using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloTeste;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
 {
@@ -62,15 +64,16 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
 												  ,TBD.NOME 
 
                                                   ,TBM.ID
-												  ,TBM.NOME AS as NOME_MATERIA
+												  ,TBM.NOME AS NOME_MATERIA
+												  ,TBM.SERIE
 
                                               FROM [DBO].[TBTESTES] TBT 
 											  INNER JOIN TBDISCIPLINA TBD ON 
 											  TBT.DISCIPLINA_ID = TBD.ID
 											  INNER JOIN TBMATERIA TBM ON
-											  TBT.MATERIA_ID = TBM.ID;
+											  TBT.MATERIA_ID = TBM.ID
                                                      WHERE 
-                                                  [ID] = @ID";
+                                                  TBT.[ID] = @ID";
 
         public override string SqlEditar => @"UPDATE [DBO].[TBTESTES]
                                    SET [TITULO] = @TITULO
@@ -80,13 +83,25 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                       ,[MATERIA_ID] = @MATERIA_ID
                                  WHERE
                                     [ID] = @ID;";
+
         public string SqlBuscarPerguntas => @"SELECT 
-		                                TBQ.TITULO
+                                        TBQ.ID
+                                       ,TBQ.TITULO
+									   ,TBQ.OPCAOA
+									   ,TBQ.OPCAOB
+									   ,TBQ.OPCAOC
+									   ,TBQ.OPCAOD
+									   ,TBQ.RESPOSTACORRETA
 	                                   ,TBT.TITULO
+
+                                       ,TBM.ID
+									   ,TBM.NOME AS NOME_MATERIA
+									   ,TBM.SERIE
 
                                 FROM TBTESTE_TBQUESTAO TBT_TBQ 
                                 INNER JOIN TBQUESTAO TBQ ON TBT_TBQ.QUESTAO_ID = TBQ.ID 
                                 INNER JOIN TBTESTES TBT ON TBT_TBQ.TESTE_ID = TBT.ID
+                                INNER JOIN TBMateria TBM ON TBM.Id = TBQ.materia_id
                                         WHERE TBT.ID = @ID;";
 
         public  string SqlInserirQuestoes => @"INSERT INTO [DBO].[TBTESTE_TBQUESTAO]
@@ -144,6 +159,34 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
 
             //fecha conexão
             conexaoComBanco.Close();
+        }
+
+        public List<Questao> RetornarTodasAsRespostas(int id)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarTodasAsQuestoes = conexao.CreateCommand();
+            comandoSelecionarTodasAsQuestoes.CommandText = SqlBuscarPerguntas;
+
+            comandoSelecionarTodasAsQuestoes.Parameters.AddWithValue("ID", id);
+
+            SqlDataReader leitorEntidades = comandoSelecionarTodasAsQuestoes.ExecuteReader();
+
+            List<Questao> entidades = new();
+
+            while (leitorEntidades.Read())
+            {
+
+                Questao questao = new MapeadorQuestao().ConverterParaEntidade(leitorEntidades);
+
+                entidades.Add(questao);
+
+            }
+
+            conexao.Close();
+
+            return entidades;
         }
 
     }

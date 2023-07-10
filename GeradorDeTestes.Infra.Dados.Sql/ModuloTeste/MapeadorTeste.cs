@@ -38,7 +38,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
 
             Disciplina disciplina = new MapeadorDisciplina().ConverterParaEntidade(leitorEntidades);
 
-            List<Questao> questoes = ObterQuestoes(leitorEntidades); 
+            List<Questao> questoes = new RepositorioTesteEmSql().RetornarTodasAsRespostas(idTeste);
 
             Teste teste = new Teste(titulo, dataDeGeracao,disciplina, materia,quanquestoes,questoes);
             teste.id = idTeste;
@@ -46,14 +46,5 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
             return teste;
         }
 
-        private List<Questao> ObterQuestoes(SqlDataReader leitorEntidades)
-        {
-            List<Questao> questoes = new();
-            Questao questao = new MapeadorQuestao().ConverterParaQuestaoDoTeste(leitorEntidades);
-            questoes.Add(questao);
-                   
-            
-            return questoes;
-        }
     }
 }

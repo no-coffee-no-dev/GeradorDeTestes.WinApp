@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     {
         private IRepositorioQuestao repositorioQuestao;
         private IRepositorioMateria repositorioMateria;
+        private IRepositorioDisciplina repositorioDisciplina;
         private TabelaQuestoesControl tabelaCategoria;
 
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria)
+        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             this.repositorioQuestao = repositorioQuestao;
             this.repositorioMateria = repositorioMateria;
+            this.repositorioDisciplina = repositorioDisciplina;
         }
 
         public override string ToolTipInserir => "Inserir nova Questão";
@@ -82,7 +85,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 return;
             }
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria);
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria, repositorioDisciplina);
             telaQuestao.Questao = questao;
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
@@ -94,11 +97,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 CarregarEntidades();
             }
         }
-
         public override void Inserir()
         {
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria);
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria, repositorioDisciplina);
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
 
