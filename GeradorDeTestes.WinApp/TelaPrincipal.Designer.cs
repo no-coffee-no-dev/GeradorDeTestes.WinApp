@@ -40,14 +40,13 @@
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
-            btnVisualizarItems = new ToolStripButton();
+           
+
             toolStripSeparator1 = new ToolStripSeparator();
             lblTipoDeCadastro = new ToolStripLabel();
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
-            toolStripSeparator1 = new ToolStripSeparator();
             toolStripSeparator2 = new ToolStripSeparator();
             toolStripButton1 = new ToolStripButton();
             menu.SuspendLayout();
@@ -114,7 +113,10 @@
             // 
             toolStrip1.AutoSize = false;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVisualizarItems, toolStripSeparator1, lblTipoDeCadastro });
+
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, toolStripSeparator1, lblTipoDeCadastro });
+
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2,toolStripSeparator1, lblTipoDeCadastro });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
@@ -210,28 +212,6 @@
             labelRodape.Name = "labelRodape";
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(6, 35);
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 35);
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = Properties.Resources.btnVisualizarItens;
-            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Padding = new Padding(7);
-            toolStripButton1.Size = new Size(50, 32);
-            toolStripButton1.Text = "toolStripButton1";
-            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // TelaPrincipal
             // 
