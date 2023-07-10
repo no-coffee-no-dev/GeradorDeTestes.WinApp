@@ -47,6 +47,9 @@
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
+            toolStripSeparator1 = new ToolStripSeparator();
+            toolStripSeparator2 = new ToolStripSeparator();
+            toolStripButton1 = new ToolStripButton();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -207,6 +210,28 @@
             labelRodape.Name = "labelRodape";
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 35);
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 35);
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = Properties.Resources.btnVisualizarItens;
+            toolStripButton1.ImageScaling = ToolStripItemImageScaling.None;
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Padding = new Padding(7);
+            toolStripButton1.Size = new Size(50, 32);
+            toolStripButton1.Text = "toolStripButton1";
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // TelaPrincipal
             // 
