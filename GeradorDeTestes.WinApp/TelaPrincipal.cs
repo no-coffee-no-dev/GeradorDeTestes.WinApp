@@ -144,25 +144,5 @@ namespace GeradorDeTestes.WinApp
         }
 
 
-
-
-
-
-
-        //private void InicializarControladores()
-        //{
-        //    repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
-        //    repositorioMateria = new RepositorioMateriaEmBancoDeDados();
-        //    repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
-        //    repositorioTeste = new RepositorioTesteEmBancoDeDados();
-
-        //    controladores = new Dictionary<string, ControladorBase>();
-
-        //    controladores.Add("Disciplina", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
-        //    controladores.Add("Matéria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
-        //    controladores.Add("Questão", new ControladorQuestao(repositorioDisciplina, repositorioMateria, repositorioQuestao));
-        //    controladores.Add("Teste", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioDisciplina, repositorioQuestao));
-        //}
-
     }
 }
