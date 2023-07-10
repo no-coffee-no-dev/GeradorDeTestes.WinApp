@@ -93,8 +93,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 
             object id = comandoInserir.ExecuteScalar();
 
-            novaEntidade.id = Convert.ToInt32(id);
-
             conexao.Close();
         }
 

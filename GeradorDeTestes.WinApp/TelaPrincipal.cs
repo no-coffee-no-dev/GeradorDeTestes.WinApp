@@ -6,10 +6,13 @@ using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloTeste;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
+using GeradorDeTestes.WinApp.ModuloDisciplina;
 using GeradorDeTestes.WinApp.ModuloMateria;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 
 namespace GeradorDeTestes.WinApp
 {
@@ -76,7 +79,8 @@ namespace GeradorDeTestes.WinApp
         }
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
-            // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            controlador = new ControladorDisciplina(repositorioDisciplina);
+            ConfigurarTelaPrincipal(controlador);
         }
 
         private void materiaMenuItem_Click(object sender, EventArgs e)

@@ -88,7 +88,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
-        private Teste ObterTeste()
+        private void ObterTeste()
         {
 
             string titulo = txtTitulo.Text;
@@ -104,7 +104,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
 
 
-            return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
+            //return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
         }
 
         private void btnSortearQuestoes_Click(object sender, EventArgs e)
@@ -135,7 +135,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            teste = ObterTeste();
+            //teste = ObterTeste();
             listaQuestoes = new();
             foreach (Questao questao in listQuestoesAleatorias.Items)
             {
