@@ -17,7 +17,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 
         public override Disciplina ConverterParaEntidade(SqlDataReader leitorEntidades)
         {
-            throw new NotImplementedException();
+            int idDisciplina = Convert.ToInt32(leitorEntidades["ID"]);
+            string nome = Convert.ToString(leitorEntidades["NOME"]);
+            Disciplina disciplina = new(nome);
+            disciplina.id = idDisciplina;
+            return disciplina;
         }
     }
 }

@@ -36,6 +36,17 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 
             return questao;
         }
+        public  Questao ConverterParaQuestaoDoTeste(SqlDataReader leitorEntidades)
+        {
+            int idQuestao = Convert.ToInt32(leitorEntidades["ID"]);
+            string titulo = Convert.ToString(leitorEntidades["TITULO"]);
+
+            Materia materia = new MapeadorMateria().ConverterParaEntidade(leitorEntidades);
+            Questao questao = new Questao(titulo);
+            questao.id = idQuestao;
+
+            return questao;
+        }
         public List<string> ConverterApenasRespostas(SqlDataReader leitorEntidades)
         {
             List<string> respostas = new();
