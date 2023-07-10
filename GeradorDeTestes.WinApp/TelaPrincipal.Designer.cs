@@ -47,6 +47,8 @@
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
+            brnGerarPDF = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -111,7 +113,7 @@
             // 
             toolStrip1.AutoSize = false;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVisualizarItems, toolStripSeparator1, lblTipoDeCadastro });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVisualizarItems, toolStripSeparator1, brnGerarPDF, toolStripSeparator3, lblTipoDeCadastro });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
@@ -208,6 +210,23 @@
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
             // 
+            // brnGerarPDF
+            // 
+            brnGerarPDF.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            brnGerarPDF.Image = Properties.Resources.download_pdf__1_;
+            brnGerarPDF.ImageScaling = ToolStripItemImageScaling.None;
+            brnGerarPDF.ImageTransparentColor = Color.Magenta;
+            brnGerarPDF.Name = "brnGerarPDF";
+            brnGerarPDF.Padding = new Padding(9);
+            brnGerarPDF.Size = new Size(46, 32);
+            brnGerarPDF.Text = "toolStripButton1";
+            brnGerarPDF.Click += brnGerarPDF_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 35);
+            // 
             // TelaPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -252,5 +271,7 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton btnVisualizarItems;
         private ToolStripSeparator toolStripSeparator1;
+        private ToolStripButton brnGerarPDF;
+        private ToolStripSeparator toolStripSeparator3;
     }
 }

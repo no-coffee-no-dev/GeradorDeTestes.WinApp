@@ -26,6 +26,7 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public abstract void Editar();
         public abstract void Deletar();
         public virtual void VisualizarItems() { }
+        public virtual void GerarPDF() { }
         public abstract void CarregarEntidades();
 
 

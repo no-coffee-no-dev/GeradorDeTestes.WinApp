@@ -120,8 +120,15 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
-        public override void VisualizarItems()
+        public override void GerarPDF()
         {
+            Teste teste = ObterTesteSelecionado();
+            string pathArquivo = GeradorDePDFdeTeste.pathArquivo("RelSabor");
+            GeradorDePDFdeTeste.PdfTeste(pathArquivo, teste.id);
+        }
+
+        public override void VisualizarItems()
+        {      
             Teste teste = ObterTesteSelecionado();
             TelaVisualizarQuestoesForm telaVisualizarQuestoes = new(repositorioTeste,teste);
             telaVisualizarQuestoes.ShowDialog();

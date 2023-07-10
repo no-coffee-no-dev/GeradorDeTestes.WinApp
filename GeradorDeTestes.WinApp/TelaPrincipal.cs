@@ -77,6 +77,14 @@ namespace GeradorDeTestes.WinApp
             else
                 controlador.VisualizarItems();
         }
+
+        private void brnGerarPDF_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.GerarPDF();
+
+        }
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
             controlador = new ControladorDisciplina(repositorioDisciplina);
@@ -97,13 +105,13 @@ namespace GeradorDeTestes.WinApp
         }
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria,repositorioDisciplina,repositorioTeste);
+            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria, repositorioDisciplina, repositorioTeste);
             ConfigurarTelaPrincipal(controlador);
         }
-    
 
-     
-    
+
+
+
         private void ConfigurarBotoes(ControladorBase controlador)
         {
             btnInserir.Enabled = controlador.BotaoInserirAtivado;
@@ -153,6 +161,8 @@ namespace GeradorDeTestes.WinApp
             }
             return false;
         }
+
+
 
 
 
