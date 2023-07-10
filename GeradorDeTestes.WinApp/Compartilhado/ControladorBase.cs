@@ -11,6 +11,7 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public abstract string ToolTipInserir { get; }
         public abstract string ToolTipEditar { get; }
         public abstract string ToolTipExcluir { get; }
+        public virtual string ToolTipVisualizarItens { get; }
 
 
         public abstract bool BotaoInserirAtivado { get; }
@@ -24,7 +25,7 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public abstract void Inserir();
         public abstract void Editar();
         public abstract void Deletar();
-
+        public virtual void VisualizarItems() { }
         public abstract void CarregarEntidades();
 
 

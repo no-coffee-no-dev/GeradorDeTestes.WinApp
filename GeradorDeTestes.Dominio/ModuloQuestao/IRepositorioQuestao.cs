@@ -8,6 +8,6 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
 {
     public interface IRepositorioQuestao : IRepositorio<Questao>
     {
-        List<string> RetornarTodasAsOpcoes();
+        List<string> RetornarTodasAsOpcoes(Questao questao);
     }
 }
