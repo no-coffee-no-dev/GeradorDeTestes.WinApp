@@ -111,8 +111,10 @@ namespace GeradorDeTestes.WinApp
 
         private void tsbDuplicar_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria, repositorioDisciplina, repositorioTeste);
-            ConfigurarTelaPrincipal(controlador);
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.DuplicarTesteSelecionado();
+
         }
 
 
@@ -123,6 +125,10 @@ namespace GeradorDeTestes.WinApp
             btnInserir.Enabled = controlador.BotaoInserirAtivado;
             btnEditar.Enabled = controlador.BotaoEditarAtivado;
             btnExcluir.Enabled = controlador.BotaoDeletarAtivado;
+            btnVisualizarItems.Enabled = controlador.BotaoVisualizarItensAtivado;
+            btnGerarPDF.Enabled = controlador.BotaoGerarPDFAtivado;
+            btnDuplicar.Enabled = controlador.BotaoDuplicarTesteAtivado;
+
 
         }
 

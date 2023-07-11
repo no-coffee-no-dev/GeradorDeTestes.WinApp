@@ -18,7 +18,8 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public abstract bool BotaoDeletarAtivado { get; }
         public abstract bool BotaoEditarAtivado { get; }
         public abstract bool BotaoVisualizarItensAtivado { get; }
-        public abstract bool BotaoConfigurarDescontoAtivado { get; }
+        public abstract bool BotaoGerarPDFAtivado { get; }
+        public abstract bool BotaoDuplicarTesteAtivado { get; }
 
         public abstract UserControl ObterListagem();
         public abstract string ObterTipoCadastro();
@@ -28,6 +29,7 @@ namespace GeradorDeTestes.WinApp.Compartilhado
         public virtual void VisualizarItems() { }
         public virtual void GerarPDF() { }
         public abstract void CarregarEntidades();
+        public virtual void DuplicarTesteSelecionado() { }
 
 
 

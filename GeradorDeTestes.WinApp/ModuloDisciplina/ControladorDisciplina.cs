@@ -29,7 +29,10 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
 
         public override bool BotaoVisualizarItensAtivado => true;
 
-        public override bool BotaoConfigurarDescontoAtivado => throw new NotImplementedException();
+
+        public override bool BotaoGerarPDFAtivado => false;
+
+        public override bool BotaoDuplicarTesteAtivado => false;
 
         public override void Deletar()
         {

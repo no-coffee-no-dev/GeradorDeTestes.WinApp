@@ -5,6 +5,7 @@ using GeradorDeTestes.Dominio.ModuloTeste;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +40,11 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         public override bool BotaoEditarAtivado => true;
 
-        public override bool BotaoVisualizarItensAtivado => false;
+        public override bool BotaoVisualizarItensAtivado => true;
 
-        public override bool BotaoConfigurarDescontoAtivado => false;
+        public override bool BotaoGerarPDFAtivado => true;
+
+        public override bool BotaoDuplicarTesteAtivado => true;
 
         public override void CarregarEntidades()
         {
@@ -120,13 +123,32 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
-        public virtual void DuplicarTesteSelecionado()
+        public override void DuplicarTesteSelecionado()
         {
-            
             Teste teste = ObterTesteSelecionado();
-             repositorioTeste.Inserir(teste);
-                CarregarEntidades();
 
+            if (teste == null)
+            {
+                MessageBox.Show($"Selecione uma Teste primeiro!",
+                    "Edição de Testes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            TelaTesteForm telaTeste = new TelaTesteForm(repositorioMateria, repositorioDisciplina, repositorioQuestao);
+            telaTeste.Teste = teste;
+            telaTeste.ListaQuestoes = teste.listaQuestoes;
+
+            DialogResult opcaoEscolhida = telaTeste.ShowDialog();
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                repositorioTeste.Inserir(telaTeste.Teste, telaTeste.ListaQuestoes);
+
+                CarregarEntidades();
+            }
         }
         public override void GerarPDF()
         {
