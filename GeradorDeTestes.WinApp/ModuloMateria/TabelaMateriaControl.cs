@@ -59,7 +59,7 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
             tabelaMateria.Rows.Clear();
             foreach (Materia materia in materias)
             {
-                tabelaMateria.Rows.Add(materia.id, materia.nome, materia.disiplina.id);
+                tabelaMateria.Rows.Add(materia.id, materia.nome, materia.disiplina.nome);
             }
         }
         public int ObterIdSelecionado()

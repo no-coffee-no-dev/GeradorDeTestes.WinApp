@@ -20,7 +20,6 @@ namespace GeradorDeTestes.WinApp
         private Dictionary<string, ControladorBase> controladores;
 
         IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
-        //IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
         IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
         IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
@@ -81,8 +80,8 @@ namespace GeradorDeTestes.WinApp
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
         {
-            //controlador = new ControladorMateria(repositorioMateria);
-            //ConfigurarTelaPrincipal(controlador);
+            controlador = new ControladorMateria(repositorioMateria, repositorioDisciplina);
+            ConfigurarTelaPrincipal(controlador);
 
         }
 

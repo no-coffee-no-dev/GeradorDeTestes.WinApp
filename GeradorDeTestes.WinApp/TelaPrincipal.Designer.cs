@@ -36,11 +36,13 @@
             questaoMenuItem = new ToolStripMenuItem();
             disciplinasMenuItem = new ToolStripMenuItem();
             relatóriosToolStripMenuItem = new ToolStripMenuItem();
+
             toolStrip1 = new ToolStrip();
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
-           
+            btnVisualizarItems = new ToolStripButton();
+
 
             toolStripSeparator1 = new ToolStripSeparator();
             lblTipoDeCadastro = new ToolStripLabel();
@@ -48,7 +50,6 @@
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
             toolStripSeparator2 = new ToolStripSeparator();
-            toolStripButton1 = new ToolStripButton();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();

@@ -73,14 +73,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                                   [ID] = @ID";
 
         public override string SqlEditar => @"UPDATE [DBO].[TBTESTES]
-<<<<<<<<< Temporary merge branch 1
-                                   SET [TITULO] = 
-                                      ,[QUANTQUESTOES] = 
-                                      ,[DISCIPLINA_ID] =
-                                      ,[MATERIA_ID] = 
-                                 WHERE
-                                    [ID] = @ID;";
-=========
+
+                                   
+
                                    SET [TITULO] = @TITULO
                                       ,[QUANTQUESTOES] = @QUANTQUESTOES
                                       ,[DATADEGERACAO] = @DATADEGERACAO
@@ -89,7 +84,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                  WHERE
                                     [ID] = @ID;";
 
-        public  string SqlInserirQuestoes => @"INSERT INTO [DBO].[TBTESTE_TBQUESTAO]
+        public string SqlInserirQuestoes => @"INSERT INTO [DBO].[TBTESTE_TBQUESTAO]
                                                            (
                                                             [QUESTAO_ID]
                                                            ,[TESTE_ID])
@@ -98,7 +93,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                                             @QUESTAO_ID
                                                             ,@TESTE_ID
                                                             );";
-
 
 
 
@@ -146,13 +140,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
             conexaoComBanco.Close();
         }
 
-		                                TBQ.TITULO
-	                                   ,TBT.TITULO
 
-                                FROM TBTESTE_TBQUESTAO TBT_TBQ 
-                                INNER JOIN TBQUESTAO TBQ ON TBT_TBQ.QUESTAO_ID = TBQ.ID 
-                                INNER JOIN TBTESTES TBT ON TBT_TBQ.TESTE_ID = TBT.ID
-                                        WHERE TBT.ID = @ID;";
->>>>>>>>> Temporary merge branch 2
     }
 }

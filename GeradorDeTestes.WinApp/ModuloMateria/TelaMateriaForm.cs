@@ -17,14 +17,11 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
     public partial class TelaMateriaForm : Form
     {
         private Materia materia;
-        public TelaMateriaForm()
+        public TelaMateriaForm(IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
             this.ConfigurarDialog();
-        }
-
-        public TelaMateriaForm(IRepositorioDisciplina repositorioDisciplina)
-        {
+            AdicionaAComboBox(repositorioDisciplina);
         }
 
         public Materia Materia
@@ -38,6 +35,13 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
                 return materia;
             }
         }
+        private void AdicionaAComboBox(IRepositorioDisciplina repositorioDisciplina)
+        {
+            foreach (Disciplina disciplina in repositorioDisciplina.RetornarTodos())
+            {
+                cbxDisciplina.Items.Add(disciplina);
+            }
+        }
 
         private void ConfigurarValores(Materia value)
         {
@@ -45,8 +49,9 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
         }
         private Materia ObterMateria()
         {
+
             string nome = txtNome.Text;
-            Disciplina disiplina = (Disciplina)cbxDisiplina.SelectedItem;
+            Disciplina disiplina = (Disciplina)cbxDisciplina.SelectedItem;
             string SerieSelecionada = "";
             if (rbSerie1.Checked)
             {
@@ -56,11 +61,27 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
             {
                 SerieSelecionada = "2°";
             }
-            
-            
 
+
+          
 
             return materia = new Materia(nome, disiplina, SerieSelecionada);
+        }
+
+        private void btnGravar_Click(object sender, EventArgs e)
+        {
+            materia = ObterMateria();
+
+            string[] erros = materia.Validar();
+
+            if (erros.Length > 0)
+            {
+                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                DialogResult = DialogResult.None;
+            }
+
+            if (txtId.Text != "0")
+                materia.id = Convert.ToInt32(txtId.Text);
         }
     }
 }

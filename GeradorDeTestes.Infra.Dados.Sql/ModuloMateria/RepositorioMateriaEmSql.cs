@@ -12,38 +12,46 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
         public override string SqlInserir => @"
                                 INSERT INTO [DBO].[TBMATERIA]
                                            (
-                                           ,[NOME]
+                                           [NOME]
                                            ,[SERIE]
                                            ,[ID_DISCIPLINA])
                                      VALUES
                                            (
-                                           ,@NOME
+                                            @NOME_MATERIA
                                            ,@SERIE
-                                           ,@ID_DISCILINA)
+                                           ,@ID_DISCIPLINA);
                                     SELECT SCOPE_IDENTITY();";
 
-        public override string SqlBuscarTodos => @"SELECT 
-                                                   [ID]
-                                                  ,[NOME] as NOME_MATERIA
-                                                  ,[SERIE]
-                                                  ,[ID_DISCIPLINA]
+        public override string SqlBuscarTodos => @"SELECT
+                                                   M.[ID]
+                                                  ,M.[nome] as NOME_MATERIA
+                                                  ,M.[SERIE] 
+                                                  ,M.[ID_DISCIPLINA]
+                                                  ,D.[ID]
+												  ,D.[NOME]
+                                                 
                                               FROM 
-                                                [DBO].[TBMATERIA];";
+                                                   TBMATERIA M
+                                                
+                                        INNER JOIN TBDISCIPLINA  D ON M.ID_DISCIPLINA = D.ID;";
 
         public override string SqlDeletar => @"DELETE FROM [TBMateria] WHERE [Id] = @Id ";
 
         public override string SqlBuscaId => @"SELECT 
-                                                [ID]
-                                               ,[NOME] as NOME_MATERIA
-                                               ,[SERIE]
-                                               ,[ID_DISCIPLINA]                                             
+                                             M.[ID]
+                                                  ,M.[nome] as NOME_MATERIA
+                                                  ,M.[SERIE] 
+                                                  ,M.[ID_DISCIPLINA]
+                                                  ,D.[ID]
+												  ,D.[NOME]                                            
                                               FROM 
-                                                [DBO].[TBMATERIA]
-                                              WHERE [ID] = @ID;";
+                                                    TBMATERIA M
+                                              INNER JOIN TBDISCIPLINA  D ON M.ID_DISCIPLINA = D.ID
+                                              WHERE M.[ID] = @ID;";
 
         public override string SqlEditar => @"UPDATE [TBMATERIA] SET
 
-                                    [NOME] = @NOME
+                                    [NOME]  = @NOME_MATERIA
                                    ,[SERIE] = @SERIE
                                    ,[ID_DISCIPLINA] = @ID_DISCIPLINA
 

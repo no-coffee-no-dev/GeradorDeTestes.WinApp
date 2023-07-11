@@ -98,7 +98,8 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
 
         private Materia ObterMateriaSelecionada()
         {
-            throw new NotImplementedException();
+            int id = tabelaMateria.ObterIdSelecionado();
+            return repositorioMateria.Busca(id);
         }
 
         public override void Inserir()
@@ -129,7 +130,7 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
 
         public override string ObterTipoCadastro()
         {
-            throw new NotImplementedException();
+            return "Cadastro de Materia";
         }
     }
 }
