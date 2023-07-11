@@ -51,12 +51,57 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         public override void Deletar()
         {
-            throw new NotImplementedException();
+
+            Teste teste = ObterTesteSelecionado();
+
+            if (teste == null)
+            {
+                MessageBox.Show($"Selecione uma Teste primeiro!",
+                    "Exclusão de Testes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a Teste {teste.titulo}?", "Exclusão de Testes",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                repositorioTeste.Deletar(teste.id);
+
+                CarregarEntidades();
+            }
         }
 
         public override void Editar()
         {
-            throw new NotImplementedException();
+
+            Teste teste = ObterTesteSelecionado();
+
+            if (teste == null)
+            {
+                MessageBox.Show($"Selecione uma Teste primeiro!",
+                    "Edição de Testes",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+
+                return;
+            }
+
+            TelaTesteForm telaTeste = new TelaTesteForm(repositorioMateria, repositorioDisciplina, repositorioQuestao);
+            telaTeste.Teste = teste;
+            telaTeste.ListaQuestoes = teste.listaQuestoes;
+
+            DialogResult opcaoEscolhida = telaTeste.ShowDialog();
+
+            if (opcaoEscolhida == DialogResult.OK)
+            {
+                repositorioTeste.Atualizar(telaTeste.Teste.id, telaTeste.Teste);
+
+                CarregarEntidades();
+            }
         }
 
         public override void Inserir()
@@ -75,6 +120,20 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
+        public override void GerarPDF()
+        {
+            Teste teste = ObterTesteSelecionado();
+            string pathArquivo = GeradorDePDFdeTeste.pathArquivo("RelSabor");
+            GeradorDePDFdeTeste.PdfTeste(pathArquivo, teste.id);
+        }
+
+        public override void VisualizarItems()
+        {      
+            Teste teste = ObterTesteSelecionado();
+            TelaVisualizarQuestoesForm telaVisualizarQuestoes = new(repositorioTeste,teste);
+            telaVisualizarQuestoes.ShowDialog();
+        }
+
         public override UserControl ObterListagem()
         {
             if (tabelaTestes == null)
@@ -88,6 +147,12 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         public override string ObterTipoCadastro()
         {
            return "Cadastros de Teste";
+        }
+        private Teste ObterTesteSelecionado()
+        {
+            int id = tabelaTestes.ObterIdSelecionado();
+
+            return repositorioTeste.Busca(id);
         }
     }
 }

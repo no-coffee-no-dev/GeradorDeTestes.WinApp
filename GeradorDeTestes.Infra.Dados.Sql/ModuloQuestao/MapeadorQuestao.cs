@@ -36,7 +36,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
 
             return questao;
         }
-        public  Questao ConverterParaQuestaoDoTeste(SqlDataReader leitorEntidades)
+        public Questao ConverterParaQuestaoDoTeste(SqlDataReader leitorEntidades)
         {
             int idQuestao = Convert.ToInt32(leitorEntidades["ID"]);
             string titulo = Convert.ToString(leitorEntidades["TITULO"]);

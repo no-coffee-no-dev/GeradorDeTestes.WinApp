@@ -6,10 +6,13 @@ using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloTeste;
+using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
+using GeradorDeTestes.WinApp.ModuloDisciplina;
 using GeradorDeTestes.WinApp.ModuloMateria;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 
 namespace GeradorDeTestes.WinApp
 {
@@ -73,9 +76,18 @@ namespace GeradorDeTestes.WinApp
             else
                 controlador.VisualizarItems();
         }
+
+        private void brnGerarPDF_Click(object sender, EventArgs e)
+        {
+            if (VerificaControladorVazio(controlador)) ;
+            else
+                controlador.GerarPDF();
+
+        }
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
-            // ConfigurarTelaPrincipal((ToolStripMenuItem)sender);
+            controlador = new ControladorDisciplina(repositorioDisciplina);
+            ConfigurarTelaPrincipal(controlador);
         }
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
@@ -87,18 +99,18 @@ namespace GeradorDeTestes.WinApp
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria);
+            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina);
             ConfigurarTelaPrincipal(controlador);
         }
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria,repositorioDisciplina,repositorioTeste);
+            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria, repositorioDisciplina, repositorioTeste);
             ConfigurarTelaPrincipal(controlador);
         }
-    
 
-     
-    
+
+
+
         private void ConfigurarBotoes(ControladorBase controlador)
         {
             btnInserir.Enabled = controlador.BotaoInserirAtivado;
@@ -149,6 +161,26 @@ namespace GeradorDeTestes.WinApp
             return false;
         }
 
+
+
+
+
+
+
+        //private void InicializarControladores()
+        //{
+        //    repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
+        //    repositorioMateria = new RepositorioMateriaEmBancoDeDados();
+        //    repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
+        //    repositorioTeste = new RepositorioTesteEmBancoDeDados();
+
+        //    controladores = new Dictionary<string, ControladorBase>();
+
+        //    controladores.Add("Disciplina", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
+        //    controladores.Add("Matéria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
+        //    controladores.Add("Questão", new ControladorQuestao(repositorioDisciplina, repositorioMateria, repositorioQuestao));
+        //    controladores.Add("Teste", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioDisciplina, repositorioQuestao));
+        //}
 
     }
 }

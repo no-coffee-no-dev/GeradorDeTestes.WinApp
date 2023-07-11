@@ -42,12 +42,24 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         }
         public List<Questao> ListaQuestoes
         {
+            set
+            {
+                ConfigurarLista(value);
+            }
             get
             {
                 return listaQuestoes;
             }
         }
 
+        private void ConfigurarLista(List<Questao> value)
+        {
+            foreach (Questao item in value)
+            {
+                listQuestoesAleatorias.Items.Add(item);
+            }
+
+        }
 
         private void ConfigurarValores(Teste value)
         {
@@ -76,7 +88,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
-        private Teste ObterTeste()
+        private void ObterTeste()
         {
 
             string titulo = txtTitulo.Text;
@@ -92,7 +104,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
 
 
-            return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
+            //return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
         }
 
         private void btnSortearQuestoes_Click(object sender, EventArgs e)
@@ -123,7 +135,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            teste = ObterTeste();
+            //teste = ObterTeste();
             listaQuestoes = new();
             foreach (Questao questao in listQuestoesAleatorias.Items)
             {
@@ -136,7 +148,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
                 TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
                 DialogResult = DialogResult.None;
             }
-                              
+
             if (txtId.Text != "0")
                 teste.id = Convert.ToInt32(txtId.Text);
         }

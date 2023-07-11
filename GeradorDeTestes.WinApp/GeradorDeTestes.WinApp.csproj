@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.PDF" Version="23.6.0" />
+    <PackageReference Include="itext7" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

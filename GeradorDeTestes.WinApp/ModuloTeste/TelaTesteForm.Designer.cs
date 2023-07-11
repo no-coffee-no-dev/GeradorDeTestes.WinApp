@@ -55,11 +55,11 @@
             // 
             // txtId
             // 
-            txtId.Location = new Point(-2, 551);
+            txtId.Location = new Point(-2, 552);
             txtId.Multiline = true;
             txtId.Name = "txtId";
             txtId.ReadOnly = true;
-            txtId.Size = new Size(10, 10);
+            txtId.Size = new Size(10, 11);
             txtId.TabIndex = 39;
             txtId.Text = "0";
             // 

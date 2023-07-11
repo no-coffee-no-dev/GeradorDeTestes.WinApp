@@ -71,7 +71,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             tabelaTestes.Rows.Clear();
             foreach (Teste teste in testes)
             {
-                tabelaTestes.Rows.Add(teste.id, teste.titulo, teste.dataDeGeracao, teste.materia.nome, teste.disciplina.nome);
+                tabelaTestes.Rows.Add(teste.id, teste.titulo, teste.dataDeGeracao.ToString("d"), teste.materia.nome, teste.disciplina.nome);
             }
         }
 
