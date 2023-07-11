@@ -36,9 +36,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         public override bool BotaoEditarAtivado => true;
 
-        public override bool BotaoVisualizarItensAtivado => false;
+        public override bool BotaoVisualizarItensAtivado => true;
 
-        public override bool BotaoConfigurarDescontoAtivado => false;
+        public override bool BotaoGerarPDFAtivado => false;
+
+        public override bool BotaoDuplicarTesteAtivado => false;
 
         public override void CarregarEntidades()
         {

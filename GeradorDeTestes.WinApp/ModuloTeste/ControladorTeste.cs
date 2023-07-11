@@ -5,6 +5,7 @@ using GeradorDeTestes.Dominio.ModuloTeste;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,9 +40,11 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         public override bool BotaoEditarAtivado => true;
 
-        public override bool BotaoVisualizarItensAtivado => false;
+        public override bool BotaoVisualizarItensAtivado => true;
 
-        public override bool BotaoConfigurarDescontoAtivado => false;
+        public override bool BotaoGerarPDFAtivado => true;
+
+        public override bool BotaoDuplicarTesteAtivado => true;
 
         public override void CarregarEntidades()
         {
@@ -120,10 +123,14 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
-        public virtual void DuplicarTesteSelecionado()
+        public override void DuplicarTesteSelecionado()
         {
             
             Teste teste = ObterTesteSelecionado();
+            teste.id = 0;
+            teste.materia.id = 0;
+            teste.disciplina.id = 0;
+           
              repositorioTeste.Inserir(teste);
                 CarregarEntidades();
 

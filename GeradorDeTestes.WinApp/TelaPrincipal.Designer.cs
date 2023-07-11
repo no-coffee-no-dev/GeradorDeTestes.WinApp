@@ -42,9 +42,9 @@
             btnExcluir = new ToolStripButton();
             btnVisualizarItems = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
-            brnGerarPDF = new ToolStripButton();
+            btnGerarPDF = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
-            tsbDuplicar = new ToolStripButton();
+            btnDuplicar = new ToolStripButton();
             lblTipoDeCadastro = new ToolStripLabel();
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
@@ -113,7 +113,7 @@
             // 
             toolStrip1.AutoSize = false;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, btnVisualizarItems, toolStripSeparator1, brnGerarPDF, toolStripSeparator3, tsbDuplicar, lblTipoDeCadastro });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, btnVisualizarItems, toolStripSeparator1, btnGerarPDF, toolStripSeparator3, btnDuplicar, lblTipoDeCadastro });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
@@ -168,7 +168,7 @@
             btnVisualizarItems.Name = "btnVisualizarItems";
             btnVisualizarItems.Padding = new Padding(7);
             btnVisualizarItems.Size = new Size(50, 32);
-            btnVisualizarItems.Text = "toolStripButton1";
+            btnVisualizarItems.Text = "Visualizar item";
             btnVisualizarItems.Click += btnVisualizarItems_Click;
             // 
             // toolStripSeparator1
@@ -176,34 +176,34 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 35);
             // 
-            // brnGerarPDF
+            // btnGerarPDF
             // 
-            brnGerarPDF.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            brnGerarPDF.Image = Properties.Resources.download_pdf__1_;
-            brnGerarPDF.ImageScaling = ToolStripItemImageScaling.None;
-            brnGerarPDF.ImageTransparentColor = Color.Magenta;
-            brnGerarPDF.Name = "brnGerarPDF";
-            brnGerarPDF.Padding = new Padding(9);
-            brnGerarPDF.Size = new Size(46, 32);
-            brnGerarPDF.Text = "toolStripButton1";
-            brnGerarPDF.Click += brnGerarPDF_Click;
+            btnGerarPDF.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnGerarPDF.Image = Properties.Resources.download_pdf__1_;
+            btnGerarPDF.ImageScaling = ToolStripItemImageScaling.None;
+            btnGerarPDF.ImageTransparentColor = Color.Magenta;
+            btnGerarPDF.Name = "btnGerarPDF";
+            btnGerarPDF.Padding = new Padding(9);
+            btnGerarPDF.Size = new Size(46, 32);
+            btnGerarPDF.Text = "Gerar PDF";
+            btnGerarPDF.Click += brnGerarPDF_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 35);
             // 
-            // tsbDuplicar
+            // btnDuplicar
             // 
-            tsbDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbDuplicar.Image = Properties.Resources.copy;
-            tsbDuplicar.ImageScaling = ToolStripItemImageScaling.None;
-            tsbDuplicar.ImageTransparentColor = Color.Magenta;
-            tsbDuplicar.Name = "tsbDuplicar";
-            tsbDuplicar.Padding = new Padding(9);
-            tsbDuplicar.Size = new Size(54, 32);
-            tsbDuplicar.Text = "tsbDuplicar";
-            tsbDuplicar.Click += tsbDuplicar_Click;
+            btnDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnDuplicar.Image = Properties.Resources.copy;
+            btnDuplicar.ImageScaling = ToolStripItemImageScaling.None;
+            btnDuplicar.ImageTransparentColor = Color.Magenta;
+            btnDuplicar.Name = "btnDuplicar";
+            btnDuplicar.Padding = new Padding(9);
+            btnDuplicar.Size = new Size(54, 32);
+            btnDuplicar.Text = "Duplicar Teste";
+            btnDuplicar.Click += tsbDuplicar_Click;
             // 
             // lblTipoDeCadastro
             // 
@@ -278,8 +278,8 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton btnVisualizarItems;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripButton brnGerarPDF;
+        private ToolStripButton btnGerarPDF;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripButton tsbDuplicar;
+        private ToolStripButton btnDuplicar;
     }
 }
