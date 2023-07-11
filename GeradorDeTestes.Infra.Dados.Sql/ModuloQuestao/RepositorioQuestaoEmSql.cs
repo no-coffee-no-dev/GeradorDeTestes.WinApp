@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloMateria;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloTeste;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
@@ -39,8 +40,12 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,TBQ.[MATERIA_ID]
                                                   ,TBM.[NOME]  as NOME_MATERIA
                                                   ,TBM.[SERIE]
+                                                  ,TBD.ID
+                                                  ,TBD.NOME
                                               FROM 
-                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID;";
+                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                                                     INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.id_disciplina;;";
+       
 
         public override string SqlDeletar => @"DELETE FROM [dbo].[TBQuestao]
                                                  WHERE [ID] = @ID;";
@@ -56,8 +61,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,TBQ.[MATERIA_ID]
                                                   ,TBM.[NOME]  as NOME_MATERIA
                                                   ,TBM.[SERIE]
+                                                  ,TBD.ID
+                                                  ,TBD.NOME
                                               FROM 
                                                 [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                                 INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.id_disciplina
                                               WHERE TBQ.[ID] = @ID;";
 
         public override string SqlEditar => @"UPDATE [DBO].[TBQUESTAO]
@@ -91,8 +99,11 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                   ,TBQ.[MATERIA_ID]
                                                   ,TBM.[NOME] as NOME_MATERIA
                                                   ,TBM.[SERIE]
+                                                  ,TBD.ID
+                                                  ,TBD.NOME
                                               FROM 
                                                 [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                                INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.id_disciplina
                                                 WHERE TBM.ID = @ID;";
 
 

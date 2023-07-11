@@ -44,11 +44,11 @@
             toolStripSeparator1 = new ToolStripSeparator();
             brnGerarPDF = new ToolStripButton();
             toolStripSeparator3 = new ToolStripSeparator();
+            tsbDuplicar = new ToolStripButton();
             lblTipoDeCadastro = new ToolStripLabel();
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
-            tsbDuplicar = new ToolStripButton();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -193,6 +193,18 @@
             toolStripSeparator3.Name = "toolStripSeparator3";
             toolStripSeparator3.Size = new Size(6, 35);
             // 
+            // tsbDuplicar
+            // 
+            tsbDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbDuplicar.Image = Properties.Resources.copy;
+            tsbDuplicar.ImageScaling = ToolStripItemImageScaling.None;
+            tsbDuplicar.ImageTransparentColor = Color.Magenta;
+            tsbDuplicar.Name = "tsbDuplicar";
+            tsbDuplicar.Padding = new Padding(9);
+            tsbDuplicar.Size = new Size(54, 32);
+            tsbDuplicar.Text = "tsbDuplicar";
+            tsbDuplicar.Click += tsbDuplicar_Click;
+            // 
             // lblTipoDeCadastro
             // 
             lblTipoDeCadastro.Name = "lblTipoDeCadastro";
@@ -221,16 +233,6 @@
             labelRodape.Name = "labelRodape";
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
-            // 
-            // tsbDuplicar
-            // 
-            tsbDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbDuplicar.Image = (Image)resources.GetObject("tsbDuplicar.Image");
-            tsbDuplicar.ImageTransparentColor = Color.Magenta;
-            tsbDuplicar.Name = "tsbDuplicar";
-            tsbDuplicar.Size = new Size(54, 32);
-            tsbDuplicar.Text = "toolStripButton1";
-            tsbDuplicar.Click += tsbDuplicar_Click;
             // 
             // TelaPrincipal
             // 

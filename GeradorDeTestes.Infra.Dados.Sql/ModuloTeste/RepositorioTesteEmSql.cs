@@ -67,6 +67,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
 												  ,TBM.NOME AS NOME_MATERIA
 												  ,TBM.SERIE
 
+
                                               FROM [DBO].[TBTESTES] TBT 
 											  INNER JOIN TBDISCIPLINA TBD ON 
 											  TBT.DISCIPLINA_ID = TBD.ID
@@ -97,11 +98,15 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                        ,TBM.ID
 									   ,TBM.NOME AS NOME_MATERIA
 									   ,TBM.SERIE
+                                       
+                                       ,TBD.ID
+                                       ,TBD.NOME
 
                                 FROM TBTESTE_TBQUESTAO TBT_TBQ 
                                 INNER JOIN TBQUESTAO TBQ ON TBT_TBQ.QUESTAO_ID = TBQ.ID 
                                 INNER JOIN TBTESTES TBT ON TBT_TBQ.TESTE_ID = TBT.ID
                                 INNER JOIN TBMateria TBM ON TBM.Id = TBQ.materia_id
+                                INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.ID_Disciplina
                                         WHERE TBT.ID = @ID;";
 
         public  string SqlInserirQuestoes => @"INSERT INTO [DBO].[TBTESTE_TBQUESTAO]
