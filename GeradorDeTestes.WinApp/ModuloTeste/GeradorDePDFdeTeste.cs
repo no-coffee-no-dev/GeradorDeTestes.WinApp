@@ -54,8 +54,8 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
                 table.AddCell(new Cell().Add(new Paragraph("MATERIA")).SetBorder(Border.NO_BORDER));
 
                 RepositorioTesteEmSql repositorioTeste = new();
-                Teste teste = repositorioTeste.Busca(id);           
-                              
+                Teste teste = repositorioTeste.Busca(id);
+
                 table.AddCell(new Cell().Add(new Paragraph(teste.id.ToString())).SetBorder(Border.NO_BORDER));
                 table.AddCell(new Cell().Add(new Paragraph(teste.titulo.ToString())).SetBorder(Border.NO_BORDER));
                 table.AddCell(new Cell().Add(new Paragraph(teste.dataDeGeracao.ToString("d"))).SetBorder(Border.NO_BORDER));
@@ -64,6 +64,8 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
                 table.AddCell(new Cell().Add(new Paragraph(teste.materia.nome.ToString())).SetBorder(Border.NO_BORDER));
 
                 document.Add(table);
+
+                Document c = document;
 
             }
             catch (Exception ex)
