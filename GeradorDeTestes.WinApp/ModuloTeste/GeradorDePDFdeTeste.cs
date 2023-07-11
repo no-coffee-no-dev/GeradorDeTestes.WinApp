@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloTeste;
+﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.Dominio.ModuloTeste;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloTeste;
 using iText.IO.Image;
 using iText.Kernel.Geom;
@@ -37,33 +38,50 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         {
             try
             {
-                PdfWriter pdfWriter = new(pathArquivo);
-                PdfDocument pdfDocument = new(pdfWriter);
-                Document document = new(pdfDocument, PageSize.A4.Rotate());
-                document.Add(new Paragraph("Teste").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
-                document.Add(new Paragraph("Prova" + ((id == 0) ? "es" : ": " + id)).SetTextAlignment(TextAlignment.CENTER).SetFontSize(15));
-                document.Add(new LineSeparator(new SolidLine()));
-                Table table = new(6, false);
-                table.SetWidth(UnitValue.CreatePercentValue(100));
-                table.SetTextAlignment(TextAlignment.LEFT);
-                table.AddCell(new Cell().Add(new Paragraph("ID")).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph("TITULO")).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph("DATADEGERACAO")).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph("QUANTQUESTOES")).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph("DISCIPLINA")).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph("MATERIA")).SetBorder(Border.NO_BORDER));
+                using (PdfWriter writer = new PdfWriter(pathArquivo))
+                {
+                    using (PdfDocument pdf = new PdfDocument(writer))
+                    {
+                        Document document = new Document(pdf);
+                        document.Add(new Paragraph("Teste").SetTextAlignment(TextAlignment.CENTER).SetFontSize(20));
+                        document.Add(new Paragraph("Prova" + ((id == 0) ? "es" : ": " + id)).SetTextAlignment(TextAlignment.CENTER).SetFontSize(15));
+                        document.Add(new LineSeparator(new SolidLine()));
+                        Table table = new(5, false);
+                        table.SetWidth(UnitValue.CreatePercentValue(100));
+                        table.SetTextAlignment(TextAlignment.LEFT);
+                        table.AddCell(new Cell().Add(new Paragraph("TÍTULO")).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph("DATA DE GERAÇÃO")).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph("QUANTIDADE DE QUESTÕES")).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph("DISCIPLINA")).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph("MATÉRIA")).SetBorder(Border.NO_BORDER));
 
-                RepositorioTesteEmSql repositorioTeste = new();
-                Teste teste = repositorioTeste.Busca(id);           
-                              
-                table.AddCell(new Cell().Add(new Paragraph(teste.id.ToString())).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph(teste.titulo.ToString())).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph(teste.dataDeGeracao.ToString("d"))).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph(teste.quantQuestoes.ToString())).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph(teste.disciplina.nome.ToString())).SetBorder(Border.NO_BORDER));
-                table.AddCell(new Cell().Add(new Paragraph(teste.materia.nome.ToString())).SetBorder(Border.NO_BORDER));
+                        RepositorioTesteEmSql repositorioTeste = new();
+                        Teste teste = repositorioTeste.Busca(id);
 
-                document.Add(table);
+                        table.AddCell(new Cell().Add(new Paragraph(teste.titulo.ToString())).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph(teste.dataDeGeracao.ToString("d"))).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph(teste.quantQuestoes.ToString())).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph(teste.disciplina.nome.ToString())).SetBorder(Border.NO_BORDER));
+                        table.AddCell(new Cell().Add(new Paragraph(teste.materia.nome.ToString())).SetBorder(Border.NO_BORDER));
+
+                        Table table2 = new(1, false);
+                        table2.AddCell(new Cell().Add(new Paragraph("Questões")).SetBorder(Border.NO_BORDER));
+                        Cell celulaQuestoes = new Cell();
+                       
+                        foreach (Questao questao in teste.listaQuestoes)
+                        {
+                            celulaQuestoes.Add(new Paragraph(questao.titulo.ToString()).SetBorder(Border.NO_BORDER));
+                        }
+
+                        table2.AddCell(celulaQuestoes);
+
+                        document.Add(table); 
+                        document.Add(table2);
+
+                        document.Close();
+                    }
+                }
+
 
             }
             catch (Exception ex)
