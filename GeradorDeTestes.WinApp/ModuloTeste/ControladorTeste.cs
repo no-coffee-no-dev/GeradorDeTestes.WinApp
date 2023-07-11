@@ -123,8 +123,20 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         public override void GerarPDF()
         {
             Teste teste = ObterTesteSelecionado();
-            string pathArquivo = GeradorDePDFdeTeste.pathArquivo("RelSabor");
+            string pathArquivo = GeradorDePDFdeTeste.pathArquivo("TESTE");
+            if (teste == null)
+            {
+                MessageBox.Show($"Selecione uma Teste primeiro!",
+                    "PDF do Teste",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
+
+                return;
+            }
             GeradorDePDFdeTeste.PdfTeste(pathArquivo, teste.id);
+             MessageBox.Show($"PDF Gerado com Sucesso!",
+                  "PDF Concluído",
+                  MessageBoxButtons.OK,MessageBoxIcon.Asterisk);
         }
 
         public override void VisualizarItems()
