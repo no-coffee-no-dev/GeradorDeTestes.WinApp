@@ -1,16 +1,11 @@
 ﻿using GeradorDeTestes.Dominio.Compartilhado;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 {
-    public abstract class RepositorioBaseEmSql <TEntidade,TMapeador> 
-        where TEntidade : EntidadeBase<TEntidade> 
-        where TMapeador : MapeadorBase<TEntidade>,new()
+    public abstract class RepositorioBaseEmSql<TEntidade, TMapeador>
+        where TEntidade : EntidadeBase<TEntidade>
+        where TMapeador : MapeadorBase<TEntidade>, new()
     {
 
         public const string ENDERECOBANCO = "Data Source=(LocalDB)\\MSSqlLocalDB;" +
@@ -18,7 +13,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
               "Integrated Security=True;" +
               "Pooling=False";
 
-      
+
         public abstract string SqlInserir { get; }
         public abstract string SqlBuscarTodos { get; }
         public abstract string SqlDeletar { get; }
@@ -30,7 +25,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             mapeador = new TMapeador();
         }
 
-        private TMapeador mapeador;
+        protected TMapeador mapeador;
 
 
         public void Atualizar(int id, TEntidade entidade)
@@ -86,7 +81,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             conexao.Close();
         }
 
-        public void Inserir(TEntidade novaEntidade)
+        public virtual void Inserir(TEntidade novaEntidade)
         {
             SqlConnection conexao = new(ENDERECOBANCO);
             conexao.Open();
@@ -97,8 +92,6 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
             mapeador.ConfigurarParametros(comandoInserir, novaEntidade);
 
             object id = comandoInserir.ExecuteScalar();
-
-            novaEntidade.id = Convert.ToInt32(id);
 
             conexao.Close();
         }
@@ -127,7 +120,7 @@ namespace GeradorDeTestes.Infra.Dados.Sql.Compartilhado
 
             return entidades;
         }
-      
+
 
     }
 }

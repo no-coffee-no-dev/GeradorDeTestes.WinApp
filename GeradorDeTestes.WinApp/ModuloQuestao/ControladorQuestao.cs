@@ -1,4 +1,6 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,15 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public class ControladorQuestao : ControladorBase
     {
         private IRepositorioQuestao repositorioQuestao;
+        private IRepositorioMateria repositorioMateria;
+        private IRepositorioDisciplina repositorioDisciplina;
         private TabelaQuestoesControl tabelaCategoria;
 
-        public ControladorQuestao(IRepositorioQuestao repositorioQuestao)
+        public ControladorQuestao(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             this.repositorioQuestao = repositorioQuestao;
+            this.repositorioMateria = repositorioMateria;
+            this.repositorioDisciplina = repositorioDisciplina;
         }
 
         public override string ToolTipInserir => "Inserir nova Questão";
@@ -22,6 +28,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
         public override string ToolTipEditar => "Editar Questão existente";
 
         public override string ToolTipExcluir => "Excluir uma Questão existente";
+        public override string ToolTipVisualizarItens=> "Visualizar Respostas";
 
         public override bool BotaoInserirAtivado => true;
 
@@ -29,9 +36,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         public override bool BotaoEditarAtivado => true;
 
-        public override bool BotaoVisualizarItensAtivado => false;
+        public override bool BotaoVisualizarItensAtivado => true;
 
-        public override bool BotaoConfigurarDescontoAtivado => false;
+        public override bool BotaoGerarPDFAtivado => false;
+
+        public override bool BotaoDuplicarTesteAtivado => false;
 
         public override void CarregarEntidades()
         {
@@ -45,8 +54,8 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (questao == null)
             {
-                MessageBox.Show($"Selecione um cliente primeiro!",
-                    "Exclusão de Clientes",
+                MessageBox.Show($"Selecione uma Questã primeiro!",
+                    "Exclusão de Questões",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
 
@@ -70,15 +79,15 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (questao == null)
             {
-                MessageBox.Show($"Selecione um cliente primeiro!",
-                    "Edição de Clientes",
+                MessageBox.Show($"Selecione uma Questão primeiro!",
+                    "Edição de Questões",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Exclamation);
 
                 return;
             }
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm();
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria, repositorioDisciplina);
             telaQuestao.Questao = questao;
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
@@ -90,11 +99,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
                 CarregarEntidades();
             }
         }
-
         public override void Inserir()
         {
 
-            TelaQuestaoForm telaQuestao = new TelaQuestaoForm();
+            TelaQuestaoForm telaQuestao = new TelaQuestaoForm(repositorioMateria, repositorioDisciplina);
 
             DialogResult opcaoEscolhida = telaQuestao.ShowDialog();
 
@@ -108,7 +116,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             }
         }
 
-        public UserControl ObterListagem()
+        public override UserControl ObterListagem()
         {
             if (tabelaCategoria == null)
                 tabelaCategoria = new TabelaQuestoesControl();
@@ -118,9 +126,17 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             return tabelaCategoria;
         }
 
-        public string ObterTipoCadastro()
+        public override string ObterTipoCadastro()
         {
-            return "Cadastro de Contatos";
+            return "Cadastro de Questões";
+        }
+
+        public override void VisualizarItems()
+        {
+
+            Questao questao = ObterQuestaoSelecionada();
+            TelaVisualizarItemsForm telaVisualizarItems = new TelaVisualizarItemsForm(repositorioQuestao, questao);
+            telaVisualizarItems.ShowDialog();
         }
 
         private Questao ObterQuestaoSelecionada()

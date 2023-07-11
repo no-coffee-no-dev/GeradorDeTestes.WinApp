@@ -1,4 +1,6 @@
-﻿using GeradorDeTestes.Dominio.ModuloQuestao;
+﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,9 +16,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
-        public TelaQuestaoForm()
+        public TelaQuestaoForm(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
+            AdicionaAComboBox(repositorioMateria,repositorioDisciplina);
             this.ConfigurarDialog();
         }
 
@@ -34,11 +37,36 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private void ConfigurarValores(Questao value)
         {
+            if (value.materia != null)
+            {
+                cmbBoxMateria.SelectedItem = value.materia;
+            }
+            txtId.Text = value.id.ToString();
             txtTitulo.Text = value.titulo;
             txtRespostaA.Text = value.opcoaoA;
             txtRespostaB.Text = value.opcoaoB;
             txtRespostaC.Text = value.opcoaoC;
             txtRespostaD.Text = value.opcoaoD;
+            if(value.opcoaoA == value.respostaCorreta)
+            {
+                rdBtnOpcaoA.Checked = true;
+            }
+            if (value.opcoaoB == value.respostaCorreta)
+            {
+                rdBtnOpcaoB.Checked = true;
+            }
+            if (value.opcoaoC == value.respostaCorreta)
+            {
+                rdBtnOpcaoC.Checked = true;
+            }
+            if (value.opcoaoC == value.respostaCorreta)
+            {
+                rdBtnOpcaoC.Checked = true;
+            }
+            if (value.opcoaoD == value.respostaCorreta)
+            {
+                rdBtnOpcaoD.Checked = true;
+            }
         }
 
 
@@ -50,14 +78,30 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
             if (erros.Length > 0)
             {
-                //TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
                 DialogResult = DialogResult.None;
             }
 
+            if (txtId.Text != "0")
+                questao.id = Convert.ToInt32(txtId.Text);
         }
+
+        private void AdicionaAComboBox(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
+        {
+            foreach (Materia materia in repositorioMateria.RetornarTodos())
+            {
+                cmbBoxMateria.Items.Add(materia);
+            }
+            foreach (Disciplina disciplina in repositorioDisciplina.RetornarTodos())
+            {
+                cmbBoxDisciplina.Items.Add(disciplina);
+            }
+        }
+
 
         private Questao ObterQuestao()
         {
+            
             string titulo = txtTitulo.Text;
             string opcaoA = txtRespostaA.Text;
             string opcaoB = txtRespostaB.Text;

@@ -44,6 +44,7 @@
             txtRespostaB = new TextBox();
             txtRespostaC = new TextBox();
             txtRespostaD = new TextBox();
+            txtId = new TextBox();
             SuspendLayout();
             // 
             // label2
@@ -191,11 +192,22 @@
             txtRespostaD.Size = new Size(221, 23);
             txtRespostaD.TabIndex = 37;
             // 
+            // txtId
+            // 
+            txtId.Location = new Point(0, 407);
+            txtId.Multiline = true;
+            txtId.Name = "txtId";
+            txtId.ReadOnly = true;
+            txtId.Size = new Size(10, 10);
+            txtId.TabIndex = 38;
+            txtId.Text = "0";
+            // 
             // TelaQuestaoForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(351, 416);
+            Controls.Add(txtId);
             Controls.Add(txtRespostaD);
             Controls.Add(txtRespostaC);
             Controls.Add(txtRespostaB);
@@ -236,5 +248,6 @@
         private TextBox txtRespostaB;
         private TextBox txtRespostaC;
         private TextBox txtRespostaD;
+        private TextBox txtId;
     }
 }

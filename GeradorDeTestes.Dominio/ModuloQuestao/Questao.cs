@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,6 +28,11 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
             this.materia = materia;
         }
 
+        public Questao(string titulo)
+        {
+            this.titulo = titulo;
+        }
+
         public override void Atualizar(Questao entidadeAtualizada)
         {
             titulo = entidadeAtualizada.titulo;
@@ -53,20 +59,10 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
 
             return erros.ToArray();
         }
-    }
 
-    #region --------TEMPORÀRIO---------
-    public class Materia : EntidadeBase<Materia>
-    {
-        public string nome;
-
-        public override void Atualizar(Materia entidadeAtualizada)
+        public override string? ToString()
         {
-            throw new NotImplementedException();
-        }
-        public override string[] Validar()
-        {
-            throw new NotImplementedException();
+            return $"{titulo}";
         }
     }
 }
