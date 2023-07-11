@@ -36,21 +36,19 @@
             questaoMenuItem = new ToolStripMenuItem();
             disciplinasMenuItem = new ToolStripMenuItem();
             relatóriosToolStripMenuItem = new ToolStripMenuItem();
-
             toolStrip1 = new ToolStrip();
             btnInserir = new ToolStripButton();
             btnEditar = new ToolStripButton();
             btnExcluir = new ToolStripButton();
             btnVisualizarItems = new ToolStripButton();
-
-
             toolStripSeparator1 = new ToolStripSeparator();
+            brnGerarPDF = new ToolStripButton();
+            toolStripSeparator3 = new ToolStripSeparator();
             lblTipoDeCadastro = new ToolStripLabel();
             panelRegistros = new Panel();
             statusStrip1 = new StatusStrip();
             labelRodape = new ToolStripStatusLabel();
-            brnGerarPDF = new ToolStripButton();
-            toolStripSeparator3 = new ToolStripSeparator();
+            tsbDuplicar = new ToolStripButton();
             menu.SuspendLayout();
             toolStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
@@ -115,7 +113,7 @@
             // 
             toolStrip1.AutoSize = false;
             toolStrip1.ImageScalingSize = new Size(50, 50);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, toolStripSeparator2, btnVisualizarItems, toolStripSeparator1, brnGerarPDF, toolStripSeparator3, lblTipoDeCadastro });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnInserir, btnEditar, btnExcluir, btnVisualizarItems, toolStripSeparator1, brnGerarPDF, toolStripSeparator3, tsbDuplicar, lblTipoDeCadastro });
             toolStrip1.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
@@ -161,11 +159,6 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.Click += btnExcluir_Click;
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 35);
-            // 
             // btnVisualizarItems
             // 
             btnVisualizarItems.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -182,6 +175,23 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 35);
+            // 
+            // brnGerarPDF
+            // 
+            brnGerarPDF.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            brnGerarPDF.Image = Properties.Resources.download_pdf__1_;
+            brnGerarPDF.ImageScaling = ToolStripItemImageScaling.None;
+            brnGerarPDF.ImageTransparentColor = Color.Magenta;
+            brnGerarPDF.Name = "brnGerarPDF";
+            brnGerarPDF.Padding = new Padding(9);
+            brnGerarPDF.Size = new Size(46, 32);
+            brnGerarPDF.Text = "toolStripButton1";
+            brnGerarPDF.Click += brnGerarPDF_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(6, 35);
             // 
             // lblTipoDeCadastro
             // 
@@ -212,22 +222,15 @@
             labelRodape.Size = new Size(52, 17);
             labelRodape.Text = "[rodapé]";
             // 
-            // brnGerarPDF
+            // tsbDuplicar
             // 
-            brnGerarPDF.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            brnGerarPDF.Image = Properties.Resources.download_pdf__1_;
-            brnGerarPDF.ImageScaling = ToolStripItemImageScaling.None;
-            brnGerarPDF.ImageTransparentColor = Color.Magenta;
-            brnGerarPDF.Name = "brnGerarPDF";
-            brnGerarPDF.Padding = new Padding(9);
-            brnGerarPDF.Size = new Size(46, 32);
-            brnGerarPDF.Text = "toolStripButton1";
-            brnGerarPDF.Click += brnGerarPDF_Click;
-            // 
-            // toolStripSeparator3
-            // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(6, 35);
+            tsbDuplicar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbDuplicar.Image = (Image)resources.GetObject("tsbDuplicar.Image");
+            tsbDuplicar.ImageTransparentColor = Color.Magenta;
+            tsbDuplicar.Name = "tsbDuplicar";
+            tsbDuplicar.Size = new Size(54, 32);
+            tsbDuplicar.Text = "toolStripButton1";
+            tsbDuplicar.Click += tsbDuplicar_Click;
             // 
             // TelaPrincipal
             // 
@@ -255,17 +258,17 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menu;
-        private System.Windows.Forms.ToolStripMenuItem cadastrosMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem testeMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem materiaMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem questaoMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disciplinasMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btnInserir;
-        private System.Windows.Forms.ToolStripButton btnEditar;
-        private System.Windows.Forms.ToolStripButton btnExcluir;
-        private System.Windows.Forms.Panel panelRegistros;
+        private MenuStrip menu;
+        private ToolStripMenuItem cadastrosMenuItem;
+        private ToolStripMenuItem testeMenuItem;
+        private ToolStripMenuItem materiaMenuItem;
+        private ToolStripMenuItem questaoMenuItem;
+        private ToolStripMenuItem disciplinasMenuItem;
+        private ToolStrip toolStrip1;
+        private ToolStripButton btnInserir;
+        private ToolStripButton btnEditar;
+        private ToolStripButton btnExcluir;
+        private Panel panelRegistros;
         private ToolStripMenuItem relatóriosToolStripMenuItem;
         private ToolStripLabel lblTipoDeCadastro;
         private StatusStrip statusStrip1;
@@ -275,5 +278,6 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripButton brnGerarPDF;
         private ToolStripSeparator toolStripSeparator3;
+        private ToolStripButton tsbDuplicar;
     }
 }

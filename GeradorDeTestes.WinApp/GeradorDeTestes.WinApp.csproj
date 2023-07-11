@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="itext7" Version="8.0.0" />
+    <PackageReference Include="iTextSharp-LGPL" Version="4.1.6" />
   </ItemGroup>
 
   <ItemGroup>

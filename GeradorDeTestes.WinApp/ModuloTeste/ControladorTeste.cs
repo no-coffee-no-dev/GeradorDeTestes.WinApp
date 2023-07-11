@@ -120,6 +120,14 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
         }
 
+        public virtual void DuplicarTesteSelecionado()
+        {
+            
+            Teste teste = ObterTesteSelecionado();
+             repositorioTeste.Inserir(teste);
+                CarregarEntidades();
+
+        }
         public override void GerarPDF()
         {
             Teste teste = ObterTesteSelecionado();

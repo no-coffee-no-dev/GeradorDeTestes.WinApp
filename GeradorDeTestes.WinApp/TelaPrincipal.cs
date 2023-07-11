@@ -109,6 +109,13 @@ namespace GeradorDeTestes.WinApp
         }
 
 
+        private void tsbDuplicar_Click(object sender, EventArgs e)
+        {
+            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria, repositorioDisciplina, repositorioTeste);
+            ConfigurarTelaPrincipal(controlador);
+        }
+
+
 
 
         private void ConfigurarBotoes(ControladorBase controlador)
@@ -163,24 +170,6 @@ namespace GeradorDeTestes.WinApp
 
 
 
-
-
-
-
-        //private void InicializarControladores()
-        //{
-        //    repositorioDisciplina = new RepositorioDisciplinaEmBancoDeDados();
-        //    repositorioMateria = new RepositorioMateriaEmBancoDeDados();
-        //    repositorioQuestao = new RepositorioQuestaoEmBancoDeDados();
-        //    repositorioTeste = new RepositorioTesteEmBancoDeDados();
-
-        //    controladores = new Dictionary<string, ControladorBase>();
-
-        //    controladores.Add("Disciplina", new ControladorDisciplina(repositorioDisciplina, repositorioMateria));
-        //    controladores.Add("Matéria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
-        //    controladores.Add("Questão", new ControladorQuestao(repositorioDisciplina, repositorioMateria, repositorioQuestao));
-        //    controladores.Add("Teste", new ControladorTeste(repositorioTeste, repositorioMateria, repositorioDisciplina, repositorioQuestao));
-        //}
 
     }
 }
