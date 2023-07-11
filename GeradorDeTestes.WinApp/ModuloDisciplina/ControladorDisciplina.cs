@@ -1,4 +1,6 @@
 ﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloQuestao;
+using GeradorDeTestes.WinApp.ModuloQuestao;
 
 namespace GeradorDeTestes.WinApp.ModuloDisciplina
 {
@@ -99,6 +101,14 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
             }
         }
 
+        public override void VisualizarItems()
+        {
+
+            Disciplina disciplina = ObterDisciplinaSelecionada();
+            TelaVisualizarItemsForm telaVisualizarItems = new TelaVisualizarItemsForm(repositorioDisciplina, disciplina);
+            telaVisualizarItems.ShowDialog();
+        }
+
 
         public override UserControl ObterListagem()
         {
@@ -126,6 +136,13 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
         {
             List<Disciplina> disciplina = repositorioDisciplina.RetornarTodos();
             tabelaDisciplina.AtualizarRegistros(disciplina);
+        }
+
+        private Disciplina ObterDisciplinaSelecionada()
+        {
+            int id = tabelaDisciplina.ObterIdSelecionado();
+
+            return repositorioDisciplina.Busca(id);
         }
     }
 }
