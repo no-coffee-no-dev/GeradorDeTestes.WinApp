@@ -17,10 +17,14 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
                                                       ,[NOME]
                                                   FROM [DBO].[TBDISCIPLINA]";
 
-        public override string SqlDeletar => throw new NotImplementedException();
+        public override string SqlDeletar => @"DELETE FROM [dbo].[TBDISCIPLINA]
+                                                 WHERE [ID] = @ID;";
 
-        public override string SqlBuscaId => throw new NotImplementedException();
+        public override string SqlBuscaId => @"SELECT [ID]
+                                                      ,[NOME]
+                                                  FROM [DBO].[TBDISCIPLINA] WHERE [TBDISCIPLINA].[ID] = @ID;";
 
-        public override string SqlEditar => throw new NotImplementedException();
+        public override string SqlEditar => @"UPDATE [DBO].[TBDISCIPLINA]
+                                                SET [NOME] = @NOME WHERE [ID] = @ID;";
     }
 }
