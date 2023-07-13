@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using System;
@@ -16,6 +17,8 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
     public partial class TelaQuestaoForm : Form
     {
         private Questao questao;
+
+        public event InserirEntidadeDelegate<Questao> onInserirEntidade;
         public TelaQuestaoForm(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
@@ -74,11 +77,11 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
         {
             questao = ObterQuestao();
 
-            string[] erros = questao.Validar();
+            Result resultado = onInserirEntidade(questao);
 
-            if (erros.Length > 0)
+            if (resultado.IsFailed)
             {
-                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(resultado.Errors[0].Message);
                 DialogResult = DialogResult.None;
             }
 
@@ -101,7 +104,7 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
 
         private Questao ObterQuestao()
         {
-            
+            int id = Convert.ToInt32(txtId.Text);
             string titulo = txtTitulo.Text;
             string opcaoA = txtRespostaA.Text;
             string opcaoB = txtRespostaB.Text;
@@ -127,7 +130,10 @@ namespace GeradorDeTestes.WinApp.ModuloQuestao
             Materia materia = (Materia)cmbBoxMateria.SelectedItem;
 
 
-            return questao = new Questao(titulo, opcaoA, opcaoB, opcaoC, opcaoD, respostaCorreta, materia);
+            
+            questao = new Questao(titulo, opcaoA, opcaoB, opcaoC, opcaoD, respostaCorreta, materia);
+            questao.id = id;
+            return questao;
         }
     }
 }

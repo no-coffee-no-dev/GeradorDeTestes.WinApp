@@ -6,13 +6,12 @@ using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloMateria;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloTeste;
-using GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina;
 using GeradorDeTestes.WinApp.ModuloDisciplina;
 using GeradorDeTestes.WinApp.ModuloMateria;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
-using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Aplicacao.ModuloQuestao;
 
 namespace GeradorDeTestes.WinApp
 {
@@ -22,17 +21,15 @@ namespace GeradorDeTestes.WinApp
         private ControladorBase controlador;
         private Dictionary<string, ControladorBase> controladores;
 
-        IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
-        IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
-        IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-        IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
-
         private static TelaPrincipal telaPrincipal;
 
         public TelaPrincipal()
         {
             InitializeComponent();
             telaPrincipal = this;
+            controladores = new Dictionary<string, ControladorBase>();
+            ConfigurarControladores();
+
         }
 
         public static TelaPrincipal Instancia
@@ -86,26 +83,22 @@ namespace GeradorDeTestes.WinApp
         }
         private void disciplinasMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorDisciplina(repositorioDisciplina);
-            ConfigurarTelaPrincipal(controlador);
+            ConfigurarTelaPrincipal(controladores["ControladorDisciplina"]);
         }
 
         private void materiaMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorMateria(repositorioMateria, repositorioDisciplina);
-            ConfigurarTelaPrincipal(controlador);
+            ConfigurarTelaPrincipal(controladores["ControladorMateria"]);
 
         }
 
         private void questaoMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorQuestao(repositorioQuestao, repositorioMateria, repositorioDisciplina);
-            ConfigurarTelaPrincipal(controlador);
+            ConfigurarTelaPrincipal(controladores["ControladorQuestao"]);
         }
         private void testeMenuItem_Click(object sender, EventArgs e)
         {
-            controlador = new ControladorTeste(repositorioQuestao, repositorioMateria, repositorioDisciplina, repositorioTeste);
-            ConfigurarTelaPrincipal(controlador);
+            ConfigurarTelaPrincipal(controladores["ControladorTeste"]);
         }
 
 
@@ -143,6 +136,7 @@ namespace GeradorDeTestes.WinApp
 
         private void ConfigurarTelaPrincipal(ControladorBase controladorBase)
         {
+            controlador = controladorBase;
             lblTipoDeCadastro.Text = controladorBase.ObterTipoCadastro();
 
             ConfigurarTooltips(controladorBase);
@@ -172,6 +166,25 @@ namespace GeradorDeTestes.WinApp
                 return true;
             }
             return false;
+        }
+
+        private void ConfigurarControladores()
+        {
+            IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
+
+            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina));
+
+            IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
+            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
+
+            IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
+            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao);
+            controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioMateria,repositorioDisciplina,servicoQuestao));
+
+
+
+            IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioQuestao,repositorioMateria,repositorioDisciplina,repositorioTeste));
         }
 
 

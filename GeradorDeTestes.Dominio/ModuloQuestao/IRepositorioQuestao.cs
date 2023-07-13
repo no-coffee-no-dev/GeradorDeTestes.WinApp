@@ -11,5 +11,6 @@ namespace GeradorDeTestes.Dominio.ModuloQuestao
     {
         List<string> RetornarTodasAsOpcoes(Questao questao);
         List<Questao> RetornarTodasAsQuestoesDaMateria(Materia materia);
+        List<Questao> RetornarQuestoesPorTitulo(Questao questao);
     }
 }

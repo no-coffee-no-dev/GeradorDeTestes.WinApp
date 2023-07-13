@@ -105,6 +105,23 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
                                                 [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
                                                 INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.id_disciplina
                                                 WHERE TBM.ID = @ID;";
+        public string SqlBuscarQuestoesPorTitulo => @"SELECT 
+                                                   TBQ.[ID]
+                                                  ,TBQ.[TITULO]
+                                                  ,TBQ.[OPCAOA]
+                                                  ,TBQ.[OPCAOB]
+                                                  ,TBQ.[OPCAOC]
+                                                  ,TBQ.[OPCAOD]
+                                                  ,TBQ.[RESPOSTACORRETA]
+                                                  ,TBQ.[MATERIA_ID]
+                                                  ,TBM.[NOME] as NOME_MATERIA
+                                                  ,TBM.[SERIE]
+                                                  ,TBD.ID
+                                                  ,TBD.NOME
+                                              FROM 
+                                                [DBO].[TBQUESTAO] TBQ INNER JOIN TBMATERIA TBM ON TBQ.MATERIA_ID = TBM.ID
+                                                INNER JOIN TBDisciplina TBD ON TBD.ID = TBM.id_disciplina
+                                                WHERE TBQ.[TITULO] = @TITULO;";
 
 
         public List<string> RetornarTodasAsOpcoes(Questao questao)
@@ -150,6 +167,30 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao
             {
                 Questao questao = mapeador.ConverterParaEntidade(leitorEntidades);
                 questoes.Add(questao);
+            }
+            conexao.Close();
+            return questoes;
+        }
+
+        public List<Questao> RetornarQuestoesPorTitulo(Questao questao)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarQuestoesPorTitulo = conexao.CreateCommand();
+            comandoSelecionarQuestoesPorTitulo.CommandText = SqlBuscarQuestoesPorTitulo;
+
+            comandoSelecionarQuestoesPorTitulo.Parameters.AddWithValue("TITULO", questao.titulo);
+
+
+            SqlDataReader leitorEntidades = comandoSelecionarQuestoesPorTitulo.ExecuteReader();
+
+            List<Questao> questoes = new();
+
+            while (leitorEntidades.Read())
+            {
+                Questao questaoSelecionada = mapeador.ConverterParaEntidade(leitorEntidades);
+                questoes.Add(questaoSelecionada);
             }
             conexao.Close();
             return questoes;
