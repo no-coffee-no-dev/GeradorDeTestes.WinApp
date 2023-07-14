@@ -1,4 +1,5 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using GeradorDeTestes.Aplicacao.ModuloTeste;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloTeste;
@@ -18,14 +19,18 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         private IRepositorioQuestao repositorioQuestao;
         private IRepositorioMateria repositorioMateria;
         private IRepositorioDisciplina repositorioDisciplina;
+
         private TabelaTesteControl tabelaTestes;
 
-        public ControladorTeste(IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina, IRepositorioTeste repositorioTeste)
+        private ServicoTeste servicoTeste;
+
+        public ControladorTeste(IRepositorioTeste repositorioTeste, IRepositorioQuestao repositorioQuestao, IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina, ServicoTeste servicoTeste)
         {
             this.repositorioTeste = repositorioTeste;
             this.repositorioQuestao = repositorioQuestao;
             this.repositorioMateria = repositorioMateria;
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoTeste = servicoTeste;
         }
 
         public override string ToolTipInserir => "Inserir um novo Teste";
@@ -111,14 +116,14 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         {
             TelaTesteForm telaTeste = new TelaTesteForm(repositorioMateria,repositorioDisciplina,repositorioQuestao);
 
+            telaTeste.onInserirEntidade += servicoTeste.Inserir;
+            Teste teste = telaTeste.Teste;
+            List<Questao> listaQuestoes = telaTeste.ListaQuestoes;
+
             DialogResult opcaoEscolhida = telaTeste.ShowDialog();
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                Teste teste = telaTeste.Teste;
-                List<Questao> listaQuestoes = telaTeste.ListaQuestoes;
-                repositorioTeste.Inserir(teste, listaQuestoes);
-
                 CarregarEntidades();
             }
         }

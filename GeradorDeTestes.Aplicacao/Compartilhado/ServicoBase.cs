@@ -64,11 +64,7 @@ namespace GeradorDeTestes.Aplicacao.Compartilhado
             return Result.Ok();
         }
 
-
-
-        protected abstract bool EntidadeDuplicada(T entidade);
-
-        private List<string> ValidarEntidade(T entidade)
+        public List<string> ValidarEntidade(T entidade)
         {
             List<string> erros = new List<string>(entidade.Validar());
 
@@ -77,6 +73,11 @@ namespace GeradorDeTestes.Aplicacao.Compartilhado
 
             return erros;
         }
+
+
+        protected abstract bool EntidadeDuplicada(T entidade);
+
+
 
         
     }

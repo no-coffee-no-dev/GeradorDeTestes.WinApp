@@ -12,6 +12,7 @@ using GeradorDeTestes.WinApp.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
 using GeradorDeTestes.Aplicacao.ModuloQuestao;
+using GeradorDeTestes.Aplicacao.ModuloTeste;
 
 namespace GeradorDeTestes.WinApp
 {
@@ -184,7 +185,8 @@ namespace GeradorDeTestes.WinApp
 
 
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioQuestao,repositorioMateria,repositorioDisciplina,repositorioTeste));
+            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste);
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste,repositorioQuestao,repositorioMateria,repositorioDisciplina,servicoTeste));
         }
 
 

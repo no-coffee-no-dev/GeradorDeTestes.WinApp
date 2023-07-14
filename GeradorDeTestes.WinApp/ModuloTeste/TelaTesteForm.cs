@@ -1,8 +1,10 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.Dominio.ModuloTeste;
 using GeradorDeTestes.Infra.Dados.Sql.ModuloQuestao;
+using GeradorDeTestes.WinApp.Compartilhado;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +30,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         }
 
         private Teste teste;
-        private List<Questao> listaQuestoes;
+        public event InserirEntidadeDelegate<Teste> onInserirEntidade;
         public Teste Teste
         {
             set
@@ -48,7 +50,7 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
             }
             get
             {
-                return listaQuestoes;
+                return teste.listaQuestoes;
             }
         }
 
@@ -90,21 +92,23 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
 
         private Teste ObterTeste()
         {
-
+            int id = Convert.ToInt32(txtId.Text);
             string titulo = txtTitulo.Text;
             DateTime dataDeGeracao = DateTime.UtcNow.Date;
             materiaSelecionada = (Materia)cmbBoxMateria.SelectedItem;
             Disciplina disciplina = (Disciplina)cmbBoxDisciplina.SelectedItem;
             int quatidadeQuestoes = Convert.ToInt32(nmrQtdQuestoes.Value);
-            List<Questao> questoes = new();
+            teste.listaQuestoes = new();
 
             foreach (Questao questao in listQuestoesAleatorias.Items)
             {
-                questoes.Add(questao);
+                teste.listaQuestoes.Add(questao);
             }
 
 
-            return teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, questoes);
+            teste = new Teste(titulo, dataDeGeracao, disciplina, materiaSelecionada, quatidadeQuestoes, teste.listaQuestoes);
+            teste.id = id;
+            return teste;
         }
 
         private void btnSortearQuestoes_Click(object sender, EventArgs e)
@@ -152,16 +156,17 @@ namespace GeradorDeTestes.WinApp.ModuloTeste
         private void btnGravar_Click(object sender, EventArgs e)
         {
             teste = ObterTeste();
-            listaQuestoes = new();
+            teste.listaQuestoes = new();
             foreach (Questao questao in listQuestoesAleatorias.Items)
             {
-                listaQuestoes.Add(questao);
+                teste.listaQuestoes.Add(questao);
             }
-            string[] erros = teste.Validar();
 
-            if (erros.Length > 0)
+            Result resultado = onInserirEntidade(teste);
+
+            if (resultado.IsFailed)
             {
-                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(resultado.Errors[0].Message);
                 DialogResult = DialogResult.None;
             }
 

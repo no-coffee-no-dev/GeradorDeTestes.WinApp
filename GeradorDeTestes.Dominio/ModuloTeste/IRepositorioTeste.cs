@@ -11,5 +11,6 @@ namespace GeradorDeTestes.Dominio.ModuloTeste
     {
         public void Inserir(Teste novaEntidade, List<Questao> questoes);
         public List<Questao> RetornarTodasAsRespostas(int id);
+        public List<Teste> RetornarTestesPorTitulo(Teste teste);
     }
 }
