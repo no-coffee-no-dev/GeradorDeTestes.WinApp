@@ -1,5 +1,7 @@
 ﻿
+using FluentResults;
 using GeradorDeTestes.Dominio.ModuloDisciplina;
+using GeradorDeTestes.Dominio.ModuloTeste;
 
 namespace GeradorDeTestes.WinApp.ModuloDisciplina
 {
@@ -7,6 +9,7 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
     {
 
         private Disciplina disciplina;
+        public event InserirEntidadeDelegate<Disciplina> onInserirEntidade;
         public TelaDisciplinaForm()
         {
             InitializeComponent();
@@ -35,11 +38,11 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
         {
             disciplina = ObterDisciplina();
 
-            string[] erros = disciplina.Validar();
+            Result resultado = onInserirEntidade(disciplina);
 
-            if (erros.Length > 0)
+            if (resultado.IsFailed)
             {
-                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(resultado.Errors[0].Message);
                 DialogResult = DialogResult.None;
             }
 
@@ -49,8 +52,11 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
 
         private Disciplina ObterDisciplina()
         {
+            int id = Convert.ToInt32(txtId.Text);
             string nome = txtNome.Text;
-            return disciplina = new Disciplina(nome);
+            disciplina = new Disciplina(nome);
+            disciplina.id = id;
+            return disciplina; 
         }
     }
 

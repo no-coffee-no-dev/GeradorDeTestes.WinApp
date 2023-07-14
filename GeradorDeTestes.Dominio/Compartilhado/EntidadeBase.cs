@@ -13,6 +13,5 @@ namespace GeradorDeTestes.Dominio.Compartilhado
 
         public abstract void Atualizar(TEntidade entidadeAtualizada);
 
-        public abstract string[] Validar();
     }
 }

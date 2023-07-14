@@ -1,4 +1,7 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorDeTestes.Aplicacao.ModuloDisciplina;
+using GeradorDeTestes.Aplicacao.ModuloQuestao;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloQuestao;
 
@@ -9,9 +12,12 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
         private IRepositorioDisciplina repositorioDisciplina;
         private TabelaDisciplinaControl tabelaDisciplina;
 
-        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina)
+        private ServicoDisciplina servicoDisciplina;
+
+        public ControladorDisciplina(IRepositorioDisciplina repositorioDisciplina, ServicoDisciplina servicoDisciplina)
         {
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoDisciplina = servicoDisciplina;
         }
 
         public override string ToolTipInserir => "Inserir nova disciplina";
@@ -54,7 +60,13 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioDisciplina.Deletar(disciplina.id);
+                Result resultado = servicoDisciplina.Deletar(disciplina);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Disciplinas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 CarregarEntidades();
             }
@@ -76,14 +88,15 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
             }
 
             TelaDisciplinaForm telaDisciplina = new TelaDisciplinaForm();
+
             telaDisciplina.Disciplina = disciplina;
+
+            telaDisciplina.onInserirEntidade += servicoDisciplina.Atualizar;
 
             DialogResult opcaoEscolhida = telaDisciplina.ShowDialog();
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioDisciplina.Atualizar(telaDisciplina.Disciplina.id, telaDisciplina.Disciplina);
-
                 CarregarEntidades();
             }
         }
@@ -92,14 +105,14 @@ namespace GeradorDeTestes.WinApp.ModuloDisciplina
         {
             TelaDisciplinaForm telaDisciplina = new TelaDisciplinaForm();
 
+            telaDisciplina.onInserirEntidade += servicoDisciplina.Inserir;
+
             DialogResult opcaoEscolhida = telaDisciplina.ShowDialog();
 
+            Disciplina disciplina = telaDisciplina.Disciplina;
+
             if (opcaoEscolhida == DialogResult.OK)
-            {
-                Disciplina disciplina = telaDisciplina.Disciplina;
-
-                repositorioDisciplina.Inserir(disciplina);
-
+            {               
                 CarregarEntidades();
             }
         }

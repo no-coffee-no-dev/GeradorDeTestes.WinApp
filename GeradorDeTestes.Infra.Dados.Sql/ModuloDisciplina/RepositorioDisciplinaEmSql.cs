@@ -33,6 +33,9 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 
         public string SqlBuscarQuestoesRelacionadas => @"SELECT Q.titulo
                                               FROM[dbo].[TBMateria] as M INNER JOIN TBQuestao Q on Q.materia_id = M.id WHERE M.id_disciplina = @ID;";
+        public string SqlBuscarQuestoesPorNome => @"SELECT [ID]
+                                                      ,[NOME]
+                                                  FROM [DBO].[TBDISCIPLINA] D WHERE D.[NOME] = @NOME;";
 
         public List<string> RetornarQuestoesRelacionadas(Disciplina disciplina)
         {
@@ -58,7 +61,29 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloDisciplina
 
             return entidades;
         }
+        public List<Disciplina> RetornarDisciplinasPorNome(Disciplina disciplina)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarQuestoesPorNome = conexao.CreateCommand();
+            comandoSelecionarQuestoesPorNome.Parameters.AddWithValue("NOME", disciplina.nome);
+
+            comandoSelecionarQuestoesPorNome.CommandText = SqlBuscarQuestoesPorNome;
+
+            SqlDataReader leitorEntidades = comandoSelecionarQuestoesPorNome.ExecuteReader();
+
+            List<Disciplina> entidades = new();
+
+            while (leitorEntidades.Read())
+            {
+                Disciplina disciplinaSelecionada = mapeador.ConverterParaEntidade(leitorEntidades);
+                entidades.Add(disciplinaSelecionada);
+            }
+
+            conexao.Close();
+
+            return entidades;
+        }
     }
 }
-//SELECT Q.titulo
-//  FROM[dbo].[TBMateria] as M INNER JOIN TBQuestao Q on Q.materia_id = M.id WHERE M.id_disciplina = 5;

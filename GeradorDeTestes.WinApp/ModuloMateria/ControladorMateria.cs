@@ -1,12 +1,9 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorDeTestes.Aplicacao.ModuloDisciplina;
+using GeradorDeTestes.Aplicacao.ModuloMateria;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
-using GeradorDeTestes.Dominio.ModuloQuestao;
-using GeradorDeTestes.WinApp.ModuloQuestao;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GeradorDeTestes.WinApp.ModuloMateria
 {
@@ -16,10 +13,13 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
         private IRepositorioDisciplina repositorioDisciplina;
         private TabelaMateriaControl tabelaMateria;
 
-        public ControladorMateria(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina)
+        private ServicoMateria servicoMateria;
+
+        public ControladorMateria(IRepositorioMateria repositorioMateria, IRepositorioDisciplina repositorioDisciplina, ServicoMateria servicoMateria)
         {
             this.repositorioMateria = repositorioMateria;
             this.repositorioDisciplina = repositorioDisciplina;
+            this.servicoMateria = servicoMateria;
         }
 
         public override string ToolTipInserir => "Inserir nova materia";
@@ -48,9 +48,9 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
 
         public override void Deletar()
         {
-            Materia materias = ObterMateriaSelecionada();
+            Materia materia = ObterMateriaSelecionada();
 
-            if (materias == null)
+            if (materia == null)
             {
                 MessageBox.Show($"Selecione uma materia primeiro!",
                     "Exclusão de Materia",
@@ -60,12 +60,18 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
                 return;
             }
 
-            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a Materia {materias.nome}?", "Exclusão de Materia",
+            DialogResult opcaoEscolhida = MessageBox.Show($"Deseja excluir a Materia {materia.nome}?", "Exclusão de Materia",
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioMateria.Deletar(materias.id);
+                Result resultado = servicoMateria.Deletar(materia);
+
+                if (resultado.IsFailed)
+                {
+                    MessageBox.Show(resultado.Errors[0].Message, "Exclusão de Materias", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 CarregarEntidades();
             }
@@ -86,14 +92,15 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
             }
 
             TelaMateriaForm telaMateria = new TelaMateriaForm(repositorioDisciplina);
+
             telaMateria.Materia = materia;
+
+            telaMateria.onInserirEntidade += servicoMateria.Atualizar;
 
             DialogResult opcaoEscolhida = telaMateria.ShowDialog();
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                repositorioMateria.Atualizar(telaMateria.Materia.id, telaMateria.Materia);
-
                 CarregarEntidades();
             }
         }
@@ -108,14 +115,14 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
         {
             TelaMateriaForm telaMateria = new TelaMateriaForm(repositorioDisciplina);
 
+            telaMateria.onInserirEntidade += servicoMateria.Inserir;
+
             DialogResult opcaoEscolhida = telaMateria.ShowDialog();
+
+            Materia materia = telaMateria.Materia;
 
             if (opcaoEscolhida == DialogResult.OK)
             {
-                Materia materia = telaMateria.Materia;
-
-                repositorioMateria.Inserir(materia);
-
                 CarregarEntidades();
             }
         }

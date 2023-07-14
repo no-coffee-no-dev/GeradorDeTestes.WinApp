@@ -30,20 +30,6 @@ namespace GeradorDeTestes.Dominio.ModuloMateria
             this.serie = entidadeAtualizada.serie;
         }
 
-        public override string[] Validar()
-        {
-            List<string> erros = new List<string>();
-            if (string.IsNullOrEmpty(nome))
-                erros.Add("O campo 'nome' é obrigatório");
-            if (disiplina == null)
-                erros.Add("Deve ter uma disiplina selecionada");
-            if (string.IsNullOrEmpty(serie))
-                erros.Add("Deve ter um serie selecionada");
-
-            return erros.ToArray();
-            
-        }
-
         public override string ToString()
         {
             return $"{nome}";

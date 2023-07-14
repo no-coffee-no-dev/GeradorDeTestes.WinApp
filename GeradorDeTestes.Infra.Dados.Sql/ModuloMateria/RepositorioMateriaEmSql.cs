@@ -1,4 +1,5 @@
 ﻿using GeradorDeTestes.Dominio.ModuloMateria;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,5 +59,42 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloMateria
                                   WHERE
 
                                   [ID] = @ID";
+        public string SqlBuscarMateriasPorNome => @"SELECT
+                                                   M.[ID]
+                                                  ,M.[nome] as NOME_MATERIA
+                                                  ,M.[SERIE] 
+                                                  ,M.[ID_DISCIPLINA]
+                                                  ,D.[ID]
+												  ,D.[NOME]
+                                                 
+                                              FROM 
+                                                   TBMATERIA M
+                                                
+                                        INNER JOIN TBDISCIPLINA  D ON M.ID_DISCIPLINA = D.ID
+                                                WHERE M.[NOME] = @NOME;";
+        public List<Materia> RetornarMateriasPorTitulo(Materia materia)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarMateriasPorNome = conexao.CreateCommand();
+            comandoSelecionarMateriasPorNome.CommandText = SqlBuscarMateriasPorNome;
+
+            comandoSelecionarMateriasPorNome.Parameters.AddWithValue("NOME", materia.nome);
+
+
+            SqlDataReader leitorEntidades = comandoSelecionarMateriasPorNome.ExecuteReader();
+
+            List<Materia> materias = new();
+
+            while (leitorEntidades.Read())
+            {
+                Materia materiaSelecionada = mapeador.ConverterParaEntidade(leitorEntidades);
+                materias.Add(materiaSelecionada);
+            }
+            conexao.Close();
+            return materias;
+        }
+
     }
 }

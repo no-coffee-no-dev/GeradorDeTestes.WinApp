@@ -1,22 +1,14 @@
-﻿using GeradorDeTestes.Dominio.ModuloDisciplina;
+﻿using FluentResults;
+using GeradorDeTestes.Dominio.ModuloDisciplina;
 using GeradorDeTestes.Dominio.ModuloMateria;
-using GeradorDeTestes.Dominio.ModuloQuestao;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static GeradorDeTestes.Dominio.ModuloMateria.Materia;
+
 
 namespace GeradorDeTestes.WinApp.ModuloMateria
 {
     public partial class TelaMateriaForm : Form
     {
         private Materia materia;
+        public event InserirEntidadeDelegate<Materia> onInserirEntidade;
         public TelaMateriaForm(IRepositorioDisciplina repositorioDisciplina)
         {
             InitializeComponent();
@@ -45,11 +37,12 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
 
         private void ConfigurarValores(Materia value)
         {
+            txtId.Text = value.id.ToString();
             txtNome.Text = value.nome;
         }
         private Materia ObterMateria()
         {
-
+            int id = Convert.ToInt32(txtId.Text);
             string nome = txtNome.Text;
             Disciplina disiplina = (Disciplina)cbxDisciplina.SelectedItem;
             string SerieSelecionada = "";
@@ -64,19 +57,20 @@ namespace GeradorDeTestes.WinApp.ModuloMateria
 
 
           
-
-            return materia = new Materia(nome, disiplina, SerieSelecionada);
+             materia = new Materia(nome, disiplina, SerieSelecionada);
+             materia.id = id;
+             return materia;
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
             materia = ObterMateria();
 
-            string[] erros = materia.Validar();
+            Result resultado = onInserirEntidade(materia);
 
-            if (erros.Length > 0)
+            if (resultado.IsFailed)
             {
-                TelaPrincipal.Instancia.AtualizarRodape(erros[0]);
+                TelaPrincipal.Instancia.AtualizarRodape(resultado.Errors[0].Message);
                 DialogResult = DialogResult.None;
             }
 

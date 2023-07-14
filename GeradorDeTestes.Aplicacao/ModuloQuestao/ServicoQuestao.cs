@@ -11,9 +11,11 @@ namespace GeradorDeTestes.Aplicacao.ModuloQuestao
     public class ServicoQuestao : ServicoBase<Questao>
     {
         IRepositorioQuestao repositorioQuestao;
-        public ServicoQuestao(IRepositorioQuestao repositorioQuestao) : base(repositorioQuestao)
+        ValidadorQuestao validadorQuestao;
+        public ServicoQuestao(IRepositorioQuestao repositorioQuestao, ValidadorQuestao validadorQuestao) : base(repositorioQuestao,validadorQuestao)
         {
             this.repositorioQuestao = repositorioQuestao;
+            this.validadorQuestao = validadorQuestao;
         }
 
         protected override bool EntidadeDuplicada(Questao questao)

@@ -12,6 +12,9 @@ using GeradorDeTestes.WinApp.ModuloQuestao;
 using GeradorDeTestes.WinApp.ModuloTeste;
 using System.Windows.Forms;
 using GeradorDeTestes.Aplicacao.ModuloQuestao;
+using GeradorDeTestes.Aplicacao.ModuloTeste;
+using GeradorDeTestes.Aplicacao.ModuloDisciplina;
+using GeradorDeTestes.Aplicacao.ModuloMateria;
 
 namespace GeradorDeTestes.WinApp
 {
@@ -171,20 +174,26 @@ namespace GeradorDeTestes.WinApp
         private void ConfigurarControladores()
         {
             IRepositorioDisciplina repositorioDisciplina = new RepositorioDisciplinaEmSql();
-
-            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina));
+            ValidadorDisciplina validadorDisciplina = new();
+            ServicoDisciplina servicoDisciplina = new(repositorioDisciplina,validadorDisciplina);
+            controladores.Add("ControladorDisciplina", new ControladorDisciplina(repositorioDisciplina,servicoDisciplina));
 
             IRepositorioMateria repositorioMateria = new RepositorioMateriaEmSql();
-            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina));
+            ValidadorMateria validadorMateria = new();
+            ServicoMateria servicoMateria = new(repositorioMateria, validadorMateria);
+            controladores.Add("ControladorMateria", new ControladorMateria(repositorioMateria, repositorioDisciplina,servicoMateria));
 
+
+            ValidadorQuestao validadorQuestao = new();
             IRepositorioQuestao repositorioQuestao = new RepositorioQuestaoEmSql();
-            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao);
+            ServicoQuestao servicoQuestao = new ServicoQuestao(repositorioQuestao, validadorQuestao);
             controladores.Add("ControladorQuestao", new ControladorQuestao(repositorioQuestao, repositorioMateria,repositorioDisciplina,servicoQuestao));
 
 
-
+            ValidadorTeste validadorTeste = new();
             IRepositorioTeste repositorioTeste = new RepositorioTesteEmSql();
-            controladores.Add("ControladorTeste", new ControladorTeste(repositorioQuestao,repositorioMateria,repositorioDisciplina,repositorioTeste));
+            ServicoTeste servicoTeste = new ServicoTeste(repositorioTeste,repositorioQuestao, validadorTeste);
+            controladores.Add("ControladorTeste", new ControladorTeste(repositorioTeste,repositorioQuestao,repositorioMateria,repositorioDisciplina,servicoTeste));
         }
 
 

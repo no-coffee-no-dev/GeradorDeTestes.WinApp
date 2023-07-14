@@ -118,6 +118,26 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
                                                             @QUESTAO_ID
                                                             ,@TESTE_ID
                                                             );";
+        public string SqlBuscarTestesPorTitulo => @"SELECT 
+                                                   TBT.[ID]
+                                                  ,TBT.[TITULO]
+                                                  ,TBT.[DATADEGERACAO]
+                                                  ,TBT.[QUANTQUESTOES]
+
+
+                                                  ,TBD.ID
+												  ,TBD.NOME 
+
+                                                  ,TBM.ID 
+												  ,TBM.NOME as NOME_MATERIA
+												  ,TBM.SERIE
+
+                                              FROM [DBO].[TBTESTES] TBT 
+											  INNER JOIN TBDISCIPLINA TBD ON 
+											  TBT.DISCIPLINA_ID = TBD.ID
+											  INNER JOIN TBMATERIA TBM ON
+											  TBT.MATERIA_ID = TBM.ID
+                                                 WHERE TBT.[TITULO] = @TITULO";
 
 
 
@@ -193,5 +213,32 @@ namespace GeradorDeTestes.Infra.Dados.Sql.ModuloTeste
             return entidades;
         }
 
+        public List<Teste> RetornarTestesPorTitulo(Teste teste)
+        {
+            SqlConnection conexao = new(ENDERECOBANCO);
+            conexao.Open();
+
+            SqlCommand comandoSelecionarTestesPorTitulo= conexao.CreateCommand();
+            comandoSelecionarTestesPorTitulo.CommandText = SqlBuscarTestesPorTitulo;
+
+            comandoSelecionarTestesPorTitulo.Parameters.AddWithValue("TITULO", teste.titulo);
+
+            SqlDataReader leitorEntidades = comandoSelecionarTestesPorTitulo.ExecuteReader();
+
+            List<Teste> entidades = new();
+
+            while (leitorEntidades.Read())
+            {
+
+                Teste testeSelecionado = mapeador.ConverterParaEntidade(leitorEntidades);
+
+                entidades.Add(testeSelecionado);
+
+            }
+
+            conexao.Close();
+
+            return entidades;
+        }
     }
 }
